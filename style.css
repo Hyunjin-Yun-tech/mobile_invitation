@@ -89,7 +89,26 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.splash-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  filter: brightness(1.12) contrast(1.06);
+}
+
+.splash-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+  z-index: 2;
 }
 
 .splash-screen.hidden {
@@ -99,6 +118,8 @@ img {
 }
 
 .splash-content {
+  position: relative;
+  z-index: 3;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -143,19 +164,24 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 36px;
-  background-color: var(--netflix-red);
+  padding: 13px 32px;
+  background-color: rgba(229, 9, 20, 0.82);
   color: #ffffff;
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.02rem;
+  font-weight: 700;
   border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(229, 9, 20, 0.5);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  opacity: 0.88;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
 }
 
+.btn-tudum-play:hover,
 .btn-tudum-play:active {
-  transform: scale(0.95);
-  background-color: var(--netflix-red-hover);
+  transform: scale(0.97);
+  opacity: 1;
+  background-color: rgba(229, 9, 20, 0.95);
 }
 
 .btn-tudum-play svg {

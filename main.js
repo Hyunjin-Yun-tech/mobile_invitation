@@ -153,18 +153,55 @@ function initAudioSynth() {
   const splashScreen = document.getElementById("splashScreen");
   const audioToggleBtn = document.getElementById("audioToggleBtn");
 
+  if (!audioEl) audioEl = document.getElementById("bgmAudio");
+
+  if (audioEl) {
+    // 1. 페이지 접속 시 무음으로 BGM 재생을 먼저 실행 (브라우저 재생 락 해제)
+    audioEl.muted = true;
+    audioEl.play().catch(e => console.log("Audio initial silent play:", e));
+  }
+
+  const unlockAudioSound = () => {
+    if (!audioEl) audioEl = document.getElementById("bgmAudio");
+    if (audioEl) {
+      audioEl.muted = false;
+      audioEl.volume = 1.0;
+      audioEl.play().then(() => {
+        isAudioPlaying = true;
+        if (audioToggleBtn) {
+          audioToggleBtn.classList.add("playing");
+          audioToggleBtn.style.color = "#E50914";
+        }
+      }).catch(e => console.log("Audio unlock error:", e));
+    }
+  };
+
+  // 2. 스플래시 화면 어디든 손가락이 닿거나 터치/클릭하는 순간 '시청하기' 버튼 누르기 전에 즉시 소리 출력!
+  if (splashScreen) {
+    splashScreen.addEventListener("touchstart", unlockAudioSound, { once: true, capture: true });
+    splashScreen.addEventListener("pointerdown", unlockAudioSound, { once: true, capture: true });
+    splashScreen.addEventListener("click", unlockAudioSound, { once: true, capture: true });
+  }
+
+  window.addEventListener("touchstart", unlockAudioSound, { once: true, capture: true });
+  window.addEventListener("click", unlockAudioSound, { once: true, capture: true });
+
   if (tudumBtn) {
-    tudumBtn.addEventListener("click", () => {
-      splashScreen.classList.add("hidden");
-      startBGM(); // 메인 화면 진입 시 BGM 자동 재생!
-      setTimeout(() => {
-        splashScreen.remove();
-      }, 900);
+    tudumBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      unlockAudioSound();
+      if (splashScreen) {
+        splashScreen.classList.add("hidden");
+        setTimeout(() => {
+          splashScreen.remove();
+        }, 900);
+      }
     });
   }
 
   if (audioToggleBtn) {
-    audioToggleBtn.addEventListener("click", () => {
+    audioToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       toggleBGM(); // 음표 버튼 클릭 시 BGM 켜기/끄기
     });
   }

@@ -23,10 +23,14 @@
 </head>
 <body>
   <!-- 🎵 BACKGROUND MUSIC AUDIO ELEMENT -->
-  <audio id="bgmAudio" loop src="bgm.mp3" preload="auto"></audio>
+  <audio id="bgmAudio" loop src="bgm_summer.mp3" preload="auto"></audio>
 
   <!-- 🎬 1. SPLASH INTRO SCREEN (TUDUM) -->
   <div id="splashScreen" class="splash-screen">
+    <video class="splash-bg-video" autoplay loop muted playsinline preload="auto">
+      <source src="assets/uond_video.MP4" type="video/mp4">
+    </video>
+    <div class="splash-video-overlay"></div>
     <div class="splash-content">
       <div class="n-logo-wrapper">
         <span class="n-logo-text">N</span>
@@ -416,7 +420,7 @@
       </div>
       <div class="transport-item">
         <div class="transport-title">🅿️ 주차 안내</div>
-        <div class="transport-desc">노블발렌티 전용 주차장 및 인근 주차장 무료 주차 지원</div>
+        <div class="transport-desc">노블발렌티 전용 주차장 및 인근 주차장 무료 주차 지원<br>300대 주차가능 - 2시간 무료</div>
       </div>
       <div class="transport-item">
         <div class="transport-title-inline">
