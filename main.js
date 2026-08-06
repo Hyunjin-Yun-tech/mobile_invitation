@@ -71,80 +71,44 @@ let audioEl = null;
 let synthTimer = null;
 
 function startBGM() {
-  isAudioPlaying = true;
+  audioEl = document.getElementById("bgmAudio");
   const audioToggleBtn = document.getElementById("audioToggleBtn");
-  if (audioToggleBtn) {
-    audioToggleBtn.classList.add("playing");
-    audioToggleBtn.style.color = "#E50914";
-  }
+  if (!audioEl) return;
 
-  if (!audioEl) {
-    audioEl = document.getElementById("bgmAudio");
-  }
-
-  if (audioEl) {
-    audioEl.play().then(() => {
-      showToast("🎵 로맨틱 웨딩 BGM이 시작되었습니다.");
-    }).catch((e) => {
-      console.log("Audio play error:", e);
-    });
-  }
+  audioEl.muted = false;
+  audioEl.volume = 1.0;
+  audioEl.play().then(() => {
+    isAudioPlaying = true;
+    if (audioToggleBtn) {
+      audioToggleBtn.classList.add("playing");
+      audioToggleBtn.style.color = "#E50914";
+    }
+  }).catch((e) => {
+    console.log("Audio play error:", e);
+  });
 }
 
 function stopBGM() {
-  isAudioPlaying = false;
+  audioEl = document.getElementById("bgmAudio");
   const audioToggleBtn = document.getElementById("audioToggleBtn");
+  isAudioPlaying = false;
   if (audioToggleBtn) {
     audioToggleBtn.classList.remove("playing");
     audioToggleBtn.style.color = "#FFFFFF";
   }
-
   if (audioEl) {
     audioEl.pause();
-  }
-  if (synthTimer) {
-    clearInterval(synthTimer);
-    synthTimer = null;
   }
   showToast("🔇 배경음악이 일시정지되었습니다.");
 }
 
 function toggleBGM() {
-  if (isAudioPlaying) {
+  audioEl = document.getElementById("bgmAudio");
+  if (audioEl && !audioEl.paused) {
     stopBGM();
   } else {
     startBGM();
-  }
-}
-
-function playSynthMelody() {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!audioCtx) audioCtx = new AudioCtx();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-
-    const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 392.00, 261.63];
-    let noteIdx = 0;
-
-    if (synthTimer) clearInterval(synthTimer);
-    synthTimer = setInterval(() => {
-      if (!isAudioPlaying || !audioCtx) return;
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(notes[noteIdx], now);
-      gain.gain.setValueAtTime(0.08, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 1.1);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 1.1);
-
-      noteIdx = (noteIdx + 1) % notes.length;
-    }, 650);
-  } catch (e) {
-    console.log("Audio synth error");
+    showToast("🎵 배경음악이 시작되었습니다.");
   }
 }
 
@@ -153,43 +117,28 @@ function initAudioSynth() {
   const splashScreen = document.getElementById("splashScreen");
   const audioToggleBtn = document.getElementById("audioToggleBtn");
 
-  if (!audioEl) audioEl = document.getElementById("bgmAudio");
-
-  if (audioEl) {
-    // 1. 페이지 접속 시 무음으로 BGM 재생을 먼저 실행 (브라우저 재생 락 해제)
-    audioEl.muted = true;
-    audioEl.play().catch(e => console.log("Audio initial silent play:", e));
-  }
-
-  const unlockAudioSound = () => {
-    if (!audioEl) audioEl = document.getElementById("bgmAudio");
-    if (audioEl) {
-      audioEl.muted = false;
-      audioEl.volume = 1.0;
-      audioEl.play().then(() => {
-        isAudioPlaying = true;
-        if (audioToggleBtn) {
-          audioToggleBtn.classList.add("playing");
-          audioToggleBtn.style.color = "#E50914";
-        }
-      }).catch(e => console.log("Audio unlock error:", e));
-    }
+  const unlockAudioOnce = (e) => {
+    if (e && e.target && e.target.closest("#audioToggleBtn")) return;
+    startBGM();
+    ["touchstart", "pointerdown", "click"].forEach(evt => {
+      window.removeEventListener(evt, unlockAudioOnce);
+      document.removeEventListener(evt, unlockAudioOnce);
+    });
   };
 
-  // 2. 스플래시 화면 어디든 손가락이 닿거나 터치/클릭하는 순간 '시청하기' 버튼 누르기 전에 즉시 소리 출력!
-  if (splashScreen) {
-    splashScreen.addEventListener("touchstart", unlockAudioSound, { once: true, capture: true });
-    splashScreen.addEventListener("pointerdown", unlockAudioSound, { once: true, capture: true });
-    splashScreen.addEventListener("click", unlockAudioSound, { once: true, capture: true });
-  }
+  // 1. 접속 시 즉시 재생 시도
+  startBGM();
 
-  window.addEventListener("touchstart", unlockAudioSound, { once: true, capture: true });
-  window.addEventListener("click", unlockAudioSound, { once: true, capture: true });
+  // 2. 첫 터치 시 1회만 오디오 락 해제
+  ["touchstart", "pointerdown", "click"].forEach(evt => {
+    window.addEventListener(evt, unlockAudioOnce, { once: true });
+    document.addEventListener(evt, unlockAudioOnce, { once: true });
+  });
 
   if (tudumBtn) {
     tudumBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      unlockAudioSound();
+      startBGM();
       if (splashScreen) {
         splashScreen.classList.add("hidden");
         setTimeout(() => {
@@ -202,7 +151,7 @@ function initAudioSynth() {
   if (audioToggleBtn) {
     audioToggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      toggleBGM(); // 음표 버튼 클릭 시 BGM 켜기/끄기
+      toggleBGM(); // 음표 버튼 클릭 시 BGM 켜기/끄기 100% 토글
     });
   }
 }

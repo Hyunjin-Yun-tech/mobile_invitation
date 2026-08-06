@@ -131,6 +131,8 @@ img {
   position: relative;
   width: 90px;
   height: 120px;
+  margin-top: -45px;
+  margin-bottom: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1570,6 +1572,9 @@ img {
   font-weight: 700;
   z-index: 20000;
   opacity: 0;
+  white-space: nowrap;
+  width: max-content;
+  max-width: 92vw;
   transition: transform 0.3s ease, opacity 0.3s ease;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 }
