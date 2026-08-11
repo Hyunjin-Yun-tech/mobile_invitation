@@ -60,7 +60,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initLightbox();
   initGuestbook();
   initScrollAnimations();
+  initTicketQrCode();
 });
+
+function initTicketQrCode() {
+  const qrImg = document.getElementById('cgvTicketQrImg');
+  if (qrImg) {
+    const targetUrl = encodeURIComponent("https://mobileinvitation-pink.vercel.app/");
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${targetUrl}`;
+  }
+}
 
 // --------------------------------------------------------------------------
 // 1. BACKGROUND MUSIC & INTRO SPLASH
@@ -253,12 +262,14 @@ function initRSVPModal() {
   openBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       rsvpModal.classList.add("active");
+      lockBodyScroll();
     });
   });
 
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
       rsvpModal.classList.remove("active");
+      unlockBodyScroll();
     });
   }
 
@@ -267,6 +278,7 @@ function initRSVPModal() {
     rsvpModal.addEventListener("click", (e) => {
       if (e.target === rsvpModal) {
         rsvpModal.classList.remove("active");
+        unlockBodyScroll();
       }
     });
   }
@@ -396,16 +408,16 @@ function initLightbox() {
   }
 
   if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      lightboxModal.classList.remove("active");
-    });
+    closeBtn.onclick = () => {
+      window.closeLightbox();
+    };
   }
 
   // 팝업 배경/여백 클릭 시 닫기
   if (lightboxModal) {
     lightboxModal.addEventListener("click", (e) => {
       if (e.target === lightboxModal || e.target.classList.contains("lightbox-content")) {
-        lightboxModal.classList.remove("active");
+        window.closeLightbox();
       }
     });
   }
@@ -426,7 +438,222 @@ function initLightbox() {
 }
 
 // --------------------------------------------------------------------------
+// 6b. CAST ACCORDION (출연진 접기/펼치기)
+// --------------------------------------------------------------------------
+window.toggleCastSection = function() {
+  const btn     = document.getElementById('castToggleBtn');
+  const content = document.getElementById('castContent');
+  if (!btn || !content) return;
+
+  const isOpen = content.classList.contains('open');
+
+  if (isOpen) {
+    content.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    content.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+};
+
+// --------------------------------------------------------------------------
+// 6c. GROUP GALLERY POPUP (비하인드컷 그룹 팝업)
+
+// ── 모달 오픈/클로즈 시 바깥 메인페이지 스크롤 제어 ──────
+function lockBodyScroll() {
+  document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
+}
+
+function unlockBodyScroll() {
+  const activeModals = document.querySelectorAll(
+    '.modal-overlay.active, .venue-modal-overlay.active, .rsvp-modal-overlay.active, .group-gallery-overlay.active, .lightbox-modal.active'
+  );
+  if (activeModals.length === 0) {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  }
+}
+
+// 팝업 열려 있을 때 배경(여백) touchmove 스크롤 완벽 차단 (내부 스크롤 가능 영역은 허용)
+document.addEventListener("touchmove", (e) => {
+  const activeOverlay = document.querySelector(
+    ".modal-overlay.active, .venue-modal-overlay.active, .rsvp-modal-overlay.active, .group-gallery-overlay.active, .lightbox-modal.active"
+  );
+  if (activeOverlay) {
+    const scrollable = e.target.closest(
+      ".cgv-ticket-scroll-body, .cgv-poster-banner, .cgv-ticket-white-card, .cgv-ticket-modal-card, .cgv-venue-modal-body, .rsvp-modal-card, .group-gallery-card, .lightbox-thumb-strip, .cgv-collapsible-section, .wedding-calendar-box"
+    );
+    if (!scrollable) {
+      if (e.cancelable) e.preventDefault();
+    }
+  }
+}, { passive: false });
+
+window.openGroupGallery = function(groupId) {
+  const num = groupId.replace('group', '');
+  const modal = document.getElementById('groupModal' + num);
+  if (modal) modal.classList.add('active');
+  lockBodyScroll();
+};
+
+window.closeGroupGallery = function(groupId, event) {
+  if (event && event.target !== event.currentTarget) return;
+  const num = groupId.replace('group', '');
+  const modal = document.getElementById('groupModal' + num);
+  if (modal) modal.classList.remove('active');
+  unlockBodyScroll();
+};
+
+window.openLightbox = function(src, groupSrcs) {
+  // 열려있는 그룹 갤러리 팝업 먼저 닫기
+  document.querySelectorAll('.group-gallery-overlay.active').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImg   = document.getElementById('lightboxImg');
+  const thumbStrip    = document.getElementById('lightboxThumbStrip');
+  const dotsEl        = document.getElementById('lightboxDots');
+
+  if (!lightboxModal || !lightboxImg) return;
+
+  const images = (groupSrcs && groupSrcs.length > 0) ? groupSrcs : [src];
+  let idx = images.indexOf(src);
+  if (idx < 0) idx = 0;
+  let isTransitioning = false;
+
+  // ── 도트 (여러장일 때만) ──────────────────
+  if (dotsEl) dotsEl.innerHTML = '';
+
+  // ── 하단 썸네일 스트립 ────────────────────
+  function buildThumbs() {
+    if (!thumbStrip) return;
+    if (images.length <= 1) {
+      thumbStrip.style.display = 'none';
+      thumbStrip.innerHTML = '';
+      return;
+    }
+    thumbStrip.innerHTML = images.map((imgSrc, i) => `
+      <div class="lightbox-thumb-item${i === idx ? ' active' : ''}" data-i="${i}">
+        <img src="${imgSrc}" alt="썸네일 ${i + 1}">
+      </div>
+    `).join('');
+    thumbStrip.style.display = 'flex';
+
+    thumbStrip.querySelectorAll('.lightbox-thumb-item').forEach(item => {
+      item.addEventListener('click', () => goTo(parseInt(item.dataset.i)));
+    });
+
+    // 현재 활성 썸네일 중앙 스크롤
+    const activeThumb = thumbStrip.querySelector('.lightbox-thumb-item.active');
+    if (activeThumb) activeThumb.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+  }
+
+  function updateThumbs() {
+    if (!thumbStrip) return;
+    thumbStrip.querySelectorAll('.lightbox-thumb-item').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+    const activeThumb = thumbStrip.querySelector('.lightbox-thumb-item.active');
+    if (activeThumb) activeThumb.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── 이미지 전환 (잔상 방지 무결점 로직) ─────
+  function goTo(newIdx) {
+    if (isTransitioning || newIdx === idx) return;
+    isTransitioning = true;
+
+    // 1. 기존 이미지를 완전 투명(opacity: 0) 상태로 페이드 아웃
+    lightboxImg.style.transition = 'opacity 0.15s ease-out';
+    lightboxImg.style.opacity = '0';
+
+    setTimeout(() => {
+      idx = (newIdx + images.length) % images.length;
+      const targetSrc = images[idx];
+
+      // 2. 새 이미지를 브라우저 메모리에 로드
+      const tempImg = new Image();
+      tempImg.src = targetSrc;
+
+      const displayNextImage = () => {
+        lightboxImg.src = targetSrc;
+        updateThumbs();
+        requestAnimationFrame(() => {
+          lightboxImg.style.transition = 'opacity 0.2s ease-in';
+          lightboxImg.style.opacity = '1';
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 200);
+        });
+      };
+
+      if (tempImg.complete) {
+        displayNextImage();
+      } else {
+        tempImg.onload = displayNextImage;
+        tempImg.onerror = displayNextImage;
+      }
+    }, 150);
+  }
+
+  // ── 네비게이션 버튼 ──────────────────────
+  const prevBtn = document.getElementById('lightboxPrevBtn');
+  const nextBtn = document.getElementById('lightboxNextBtn');
+
+  if (prevBtn) {
+    const newPrev = prevBtn.cloneNode(true);
+    prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+    newPrev.style.display = images.length > 1 ? 'flex' : 'none';
+    newPrev.addEventListener('click', () => goTo(idx - 1));
+  }
+  if (nextBtn) {
+    const newNext = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(newNext, nextBtn);
+    newNext.style.display = images.length > 1 ? 'flex' : 'none';
+    newNext.addEventListener('click', () => goTo(idx + 1));
+  }
+
+  // ── 터치 스와이프 ─────────────────────────
+  let touchStartX = 0;
+  let touchStartY = 0;
+  const content = lightboxModal.querySelector('.lightbox-content');
+  if (content) {
+    content.ontouchstart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+    content.ontouchend = (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx < 0) goTo(idx + 1);
+        else         goTo(idx - 1);
+      }
+    };
+  }
+
+  // ── 초기 표시 ────────────────────────────
+  lightboxImg.src = images[idx];
+  lightboxImg.classList.remove('fade-out');
+  buildThumbs();
+  lightboxModal.classList.add('active');
+};
+
+window.closeLightbox = function() {
+  const lightboxModal = document.getElementById('lightboxModal');
+  if (lightboxModal) {
+    lightboxModal.classList.remove('active');
+  }
+  document.body.style.overflow = '';
+};
+
+
+
+
+// --------------------------------------------------------------------------
 // 7. GUESTBOOK CRUD (LOCAL STORAGE)
+
 // --------------------------------------------------------------------------
 const SAMPLE_GUESTBOOK = [];
 
@@ -570,7 +797,228 @@ function escapeHtml(str) {
   });
 }
 
-// Window global functions for inline onclick handlers
+// ── 티켓 모달 (스와이프 다운 닫기) ────────────────────────
+function initTicketSwipeDown() {
+  const modal = document.getElementById('synopsisModal');
+  const card  = modal ? modal.querySelector('.cgv-ticket-modal-card') : null;
+  const handle = card ? card.querySelector('.cgv-bottom-sheet-handle') : null;
+  if (!modal || !card) return;
+
+  // 드래그 감지 영역: 핸들 또는 카드 상단 60px
+  const dragZone = handle || card;
+
+  let startY = 0, currentY = 0, startTime = 0, isDragging = false;
+
+  function onTouchStart(e) {
+    // 스크롤 가능한 내부 영역이면 무시
+    const scrollable = e.target.closest('.cgv-ticket-body, .cgv-ticket-scroll');
+    if (scrollable && scrollable.scrollTop > 0) return;
+
+    startY = e.touches[0].clientY;
+    startTime = Date.now();
+    isDragging = true;
+    card.classList.add('dragging');
+  }
+
+  function onTouchMove(e) {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY;
+    const dy = Math.max(0, currentY - startY); // 아래 방향만
+    card.style.transform = `translateY(${dy}px)`;
+  }
+
+  // ── 핸들바 직접 클릭 시 아래로 부드럽게 닫기 ─────
+  if (handle) {
+    handle.onclick = (e) => {
+      e.stopPropagation();
+      closeDownwards();
+    };
+  }
+
+  function closeDownwards() {
+    card.style.transition = 'transform 0.32s cubic-bezier(0.4, 0, 1, 1)';
+    card.style.transform = 'translateY(100%)';
+    setTimeout(() => {
+      modal.classList.remove('active');
+      unlockBodyScroll();
+      card.style.transform = '';
+      card.style.transition = '';
+    }, 320);
+  }
+
+  function onTouchEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    card.classList.remove('dragging');
+
+    const dy = Math.max(0, currentY - startY);
+    const dt = Date.now() - startTime;
+    const velocity = dy / dt; // px/ms
+
+    // 단순 탭/클릭이거나 (터치 이동 거의 없고 250ms 이내) 100px 이상 쓸어내리거나 플릭 → 닫기
+    if ((dy < 8 && dt < 250) || dy > 100 || velocity > 0.4) {
+      closeDownwards();
+    } else {
+      // 원위치 복구
+      card.style.transition = 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)';
+      card.style.transform = 'translateY(0)';
+      setTimeout(() => { card.style.transition = ''; }, 320);
+    }
+  }
+
+  dragZone.addEventListener('touchstart', onTouchStart, { passive: true });
+  card.addEventListener('touchmove',  onTouchMove,  { passive: true });
+  card.addEventListener('touchend',   onTouchEnd);
+}
+
+window.openSynopsisModal = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const modal = document.getElementById('synopsisModal');
+  if (modal) {
+    modal.classList.add('active');
+    lockBodyScroll();
+    initTicketSwipeDown(); // 열 때마다 제스처 초기화
+  }
+};
+
+window.closeSynopsisModal = function(e) {
+  if (e && e.target !== e.currentTarget && !e.target.closest('.cgv-icon-btn') && !e.target.closest('.cgv-bottom-btn')) {
+    return;
+  }
+  const modal = document.getElementById('synopsisModal');
+  if (modal) {
+    modal.classList.remove('active');
+    unlockBodyScroll();
+  }
+};
+
+
+window.openVenueModal = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const modal = document.getElementById('venueModal');
+  if (modal) {
+    modal.classList.add('active');
+    lockBodyScroll();
+  }
+};
+
+window.closeVenueModal = function(e) {
+  const modal = document.getElementById('venueModal');
+  if (modal) {
+    modal.classList.remove('active');
+    unlockBodyScroll();
+  }
+};
+
+window.openShuttleMap = function(e) {
+  if (e) {
+    if (typeof e.preventDefault === 'function') e.preventDefault();
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const lightboxModal = document.getElementById("lightboxModal");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const prevBtn = document.getElementById("lightboxPrevBtn");
+  const nextBtn = document.getElementById("lightboxNextBtn");
+  const thumbStrip = document.getElementById("lightboxThumbStrip");
+
+  if (lightboxImg) lightboxImg.src = "assets/shuttle_map.jpg";
+  if (thumbStrip) thumbStrip.style.display = "none";
+  if (prevBtn) prevBtn.style.display = "none";
+  if (nextBtn) nextBtn.style.display = "none";
+  if (lightboxModal) {
+    lightboxModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+};
+
+window.toggleCalendarSection = function() {
+  const container = document.getElementById('cgvCalendarContainer');
+  if (container) {
+    container.classList.toggle('show');
+  }
+};
+
+window.shareTicketLink = function() {
+  const shareData = {
+    title: '윤현진 ♥ 한지수 결혼합니다 🎟️',
+    text: '2026년 10월 9일 금요일 오후 1시 노블발렌티 삼성점 모바일 청첩장',
+    url: window.location.href || "https://mobileinvitation-pink.vercel.app/"
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData).catch((err) => {
+      if (err.name !== 'AbortError') {
+        copyToClipboard(shareData.url, "🎟️ 청첩장 링크가 복사되었습니다.");
+      }
+    });
+  } else {
+    copyToClipboard(shareData.url, "🎟️ 청첩장 링크가 복사되었습니다.");
+  }
+};
+
+window.goToRsvpSection = function() {
+  const modal = document.getElementById('synopsisModal');
+  const card  = modal ? modal.querySelector('.cgv-ticket-modal-card') : null;
+
+  if (card) {
+    card.style.transition = 'transform 0.3s ease';
+    card.style.transform = 'translateY(100%)';
+  }
+
+  setTimeout(() => {
+    if (modal) {
+      modal.classList.remove('active');
+      if (card) {
+        card.style.transform = '';
+        card.style.transition = '';
+      }
+    }
+    unlockBodyScroll();
+
+    const rsvpSection = document.getElementById('rsvp');
+    if (rsvpSection) {
+      rsvpSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 250);
+};
+
+window.goToAccountSection = function() {
+  const modal = document.getElementById('synopsisModal');
+  const card  = modal ? modal.querySelector('.cgv-ticket-modal-card') : null;
+
+  if (card) {
+    card.style.transition = 'transform 0.3s ease';
+    card.style.transform = 'translateY(100%)';
+  }
+
+  // 마음 전하실 곳 계좌 아코디언 상자 전부 펼치기
+  document.querySelectorAll('.account-box').forEach(box => {
+    box.classList.add('open');
+  });
+
+  setTimeout(() => {
+    if (modal) {
+      modal.classList.remove('active');
+      if (card) {
+        card.style.transform = '';
+        card.style.transition = '';
+      }
+    }
+    unlockBodyScroll();
+
+    const accSection = document.getElementById('accounts');
+    if (accSection) {
+      accSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 250);
+};
+
 window.copyAddress = function() {
   copyToClipboard(WEDDING_CONFIG.venue.address, "📍 예식장 주소가 복사되었습니다.");
 };
@@ -583,8 +1031,10 @@ function initScrollAnimations() {
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({
           behavior: 'smooth'

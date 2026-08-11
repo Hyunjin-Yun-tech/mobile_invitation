@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>윤현진 ♥ 한지수 모바일 청첩장 | NETFLIX ORIGINAL</title>
+  <title>윤현진 ♥ 한지수 결혼합니다</title>
   
   <!-- Meta Tags for Mobile Share & SEO (KakaoTalk & SNS) -->
   <meta name="description" content="영화보다 더 영화 같은 윤현진과 한지수의 결혼식에 하객 여러분을 초대합니다.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="윤현진 ♥ 한지수 결혼식 초대장 | NETFLIX">
+  <meta property="og:title" content="윤현진 ♥ 한지수 결혼합니다">
   <meta property="og:description" content="2026년 10월 9일 금요일 오후 1:00 | 노블발렌티 삼성점">
   <meta property="og:image" content="assets/main_page.jpg">
   <meta property="og:image:width" content="800">
   <meta property="og:image:height" content="1200">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="윤현진 ♥ 한지수 결혼식 초대장 | NETFLIX">
+  <meta name="twitter:title" content="윤현진 ♥ 한지수 결혼합니다">
   <meta name="twitter:description" content="2026년 10월 9일 금요일 오후 1:00 | 노블발렌티 삼성점">
   <meta name="twitter:image" content="assets/main_page.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@900&family=Outfit:wght@400;500;600;700;800&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&family=Gamja+Flower&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -83,7 +88,7 @@
 
       <!-- D-Day Timer -->
       <div class="dday-container">
-        <div class="dday-header">EPISODE AIRING IN (예식까지 남은 시간)</div>
+        <div class="dday-header">🎬 10월 9일 <span class="dday-highlight">오후 1시</span> 리미티드 시리즈 공개</div>
         <div class="dday-grid">
           <div class="dday-box">
             <span id="ddayDays" class="dday-num">00</span>
@@ -106,345 +111,310 @@
 
       <!-- Hero CTA Buttons -->
       <div class="hero-cta-group">
-        <a href="#synopsis" class="btn-hero-primary">
+        <button type="button" class="btn-hero-primary" onclick="openSynopsisModal(event)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          초대글 보기
-        </a>
-        <a href="#venue" class="btn-hero-secondary">
+          티켓보기
+        </button>
+        <button type="button" class="btn-hero-secondary" onclick="openVenueModal(event)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           상영관 (오시는길)
-        </a>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- 📖 4. SYNOPSIS (초대글) -->
-  <section id="synopsis" class="section-wrapper">
-    <h2 class="section-title">줄거리 (SYNOPSIS)</h2>
-    <div class="synopsis-card">
-      <div class="synopsis-quote">
-        "그런즉, 믿음, 소망, 사랑 이 세 가지는 <br> 항상 있을 것인데 그중의 제일은 사랑이라"
-        <div class="bible-ref">- 고린도전서 13:13 -</div>
-      </div>
-
-      <div class="synopsis-divider">
-        <span class="divider-dot">✦</span>
-      </div>
-
-      <div class="synopsis-text">
-        하나님이 맺어주신 소중한 인연으로 만나
-        사랑과 온유한 마음으로 작은 교회를 이루려 합니다.
-
-        고난이 찾아와도 기도하는 가정,
-        하나님이 돌보시는 가정을 이루는 언약의 자리에
-        소중한 걸음으로 축복해 주세요.
-      </div>
-      <div class="synopsis-footer">
-        2026년 10월 9일 금요일 오후 1시<br>
-        노블발렌티 삼성점 단독홀
-      </div>
-    </div>
-  </section>
-
-  <!-- 👥 5. CAST & CREW (신랑/신부 & 양가 부모님) -->
+  <!-- 👥 5. CAST (출연진) -->
   <section class="section-wrapper">
-    <h2 class="section-title">출연진 및 제작진 (CAST & CREW)</h2>
+    <button class="cast-accordion-btn" id="castToggleBtn" onclick="toggleCastSection()" aria-expanded="false">
+      <h2 class="section-title cast-section-title">출연진 (CAST)</h2>
+      <svg class="cast-accordion-arrow" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </button>
     
-    <div class="cast-grid">
-      <!-- Groom Card -->
-      <div class="cast-card">
-        <div class="cast-avatar" title="사진 확대보기">
-          <img src="assets/groom_main.jpg" alt="신랑 윤현진">
-          <div class="cast-avatar-overlay">
-            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <div class="cast-collapsible" id="castContent">
+      <div class="cast-grid">
+        <!-- Groom Card -->
+        <div class="cast-card">
+          <div class="cast-avatar" title="사진 확대보기">
+            <img src="assets/groom_main.jpg" alt="신랑 윤현진">
+            <div class="cast-avatar-overlay">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </div>
           </div>
-        </div>
-        <div class="cast-role-tag">MAIN LEAD / 신랑</div>
-        <div class="cast-name">윤현진</div>
-        <div class="contact-btn-group">
-          <a href="tel:01050601095" class="btn-contact">
-            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            전화
-          </a>
-          <a href="sms:01050601095" class="btn-contact">
-            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
-            문자
-          </a>
-        </div>
-      </div>
-
-      <!-- Bride Card -->
-      <div class="cast-card">
-        <div class="cast-avatar" title="사진 확대보기">
-          <img src="assets/bride_main.jpg" alt="신부 한지수">
-          <div class="cast-avatar-overlay">
-            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          </div>
-        </div>
-        <div class="cast-role-tag">MAIN LEAD / 신부</div>
-        <div class="cast-name">한지수</div>
-        <div class="contact-btn-group">
-          <a href="tel:01036090766" class="btn-contact">
-            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-            전화
-          </a>
-          <a href="sms:01036090766" class="btn-contact">
-            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
-            문자
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Parents Crew -->
-    <div class="crew-container">
-      <div class="crew-title">EXECUTIVE PRODUCERS (양가 부모님)</div>
-      
-      <!-- Groom Parents -->
-      <div class="crew-block">
-        <div class="crew-block-header">신랑 측 부모님</div>
-        <div class="crew-buttons-row">
-          <a href="tel:01035545330" class="btn-crew-parent">
-            <span>아버지 <strong>윤정만</strong></span>
-            <span class="phone-icon">📞</span>
-          </a>
-          <a href="tel:01037185339" class="btn-crew-parent">
-            <span>어머니 <strong>김남숙</strong></span>
-            <span class="phone-icon">📞</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Bride Parents -->
-      <div class="crew-block">
-        <div class="crew-block-header">신부 측 부모님</div>
-        <div class="crew-buttons-row">
-          <a href="tel:01088916816" class="btn-crew-parent">
-            <span>아버지 <strong>한범석</strong></span>
-            <span class="phone-icon">📞</span>
-          </a>
-          <a href="tel:01049200766" class="btn-crew-parent">
-            <span>어머니 <strong>이지량</strong></span>
-            <span class="phone-icon">📞</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 📺 6. EPISODES (LOVE STORY TIMELINE) -->
-  <section class="section-wrapper">
-    <h2 class="section-title">에피소드 (LOVE STORY)</h2>
-    
-    <div class="episodes-list">
-      <!-- Episode 1 -->
-      <div class="episode-card">
-        <div class="ep-thumb-wrapper">
-          <img src="assets/gallery1.jpg" alt="에피소드 1 썸네일">
-          <div class="ep-play-overlay">
-            <div class="ep-play-icon">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <div class="cast-info-content">
+            <div class="cast-role-tag">MAIN LEAD / GROOM</div>
+            <div class="cast-name-line">
+              <span class="cast-relation">윤정만 · 김남숙의 아들</span>
+              <div class="cast-name-wrapper">
+                <span class="cast-name">현진</span>
+              </div>
+            </div>
+            <div class="contact-btn-group">
+              <a href="tel:01050601095" class="btn-contact">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                전화
+              </a>
+              <a href="sms:01050601095" class="btn-contact">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
+                문자
+              </a>
             </div>
           </div>
         </div>
-        <div class="ep-info">
-          <div class="ep-num-title">
-            <span class="ep-title">E1. 첫 만남의 순간</span>
-            <span class="ep-duration">2021.05</span>
+
+        <!-- Bride Card -->
+        <div class="cast-card">
+          <div class="cast-avatar" title="사진 확대보기">
+            <img src="assets/bride_main.jpg" alt="신부 한지수">
+            <div class="cast-avatar-overlay">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </div>
           </div>
+          <div class="cast-info-content">
+            <div class="cast-role-tag">MAIN LEAD / BRIDE</div>
+            <div class="cast-name-line">
+              <span class="cast-relation">한범석 · 이지량의 딸</span>
+              <div class="cast-name-wrapper">
+                <span class="cast-name">지수</span>
+              </div>
+            </div>
+            <div class="contact-btn-group">
+              <a href="tel:01036090766" class="btn-contact">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                전화
+              </a>
+              <a href="sms:01036090766" class="btn-contact">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/></svg>
+                문자
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📺 6. EPISODES (LOVE STORY TIMELINE) - 임시 비활성화 -->
+  <section class="section-wrapper" style="display:none" aria-hidden="true">
+    <h2 class="section-title">에피소드 (LOVE STORY)</h2>
+    <div class="episodes-list">
+      <div class="episode-card">
+        <div class="ep-thumb-wrapper">
+          <img src="assets/garden2.jpg" alt="에피소드 1 썸네일">
+          <div class="ep-play-overlay"><div class="ep-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="ep-info">
+          <div class="ep-num-title"><span class="ep-title">E1. 첫 만남의 순간</span><span class="ep-duration">2021.05</span></div>
           <p class="ep-desc">따뜻한 봄날, 카페에서 나눈 커피 한 잔으로 시작된 소중하고 특별한 인연.</p>
         </div>
       </div>
-
-      <!-- Episode 2 -->
       <div class="episode-card">
         <div class="ep-thumb-wrapper">
-          <img src="assets/gallery2.jpg" alt="에피소드 2 썸네일">
-          <div class="ep-play-overlay">
-            <div class="ep-play-icon">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
+          <img src="assets/river1.jpg" alt="에피소드 2 썸네일">
+          <div class="ep-play-overlay"><div class="ep-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
         </div>
         <div class="ep-info">
-          <div class="ep-num-title">
-            <span class="ep-title">E2. 깊어지는 우리의 계절</span>
-            <span class="ep-duration">2023.10</span>
-          </div>
+          <div class="ep-num-title"><span class="ep-title">E2. 깊어지는 우리의 계절</span><span class="ep-duration">2023.10</span></div>
           <p class="ep-desc">함께 떠난 수많은 여행과 사계절의 추억 속에서 서로의 유일한 편이 되어준 시간.</p>
         </div>
       </div>
-
-      <!-- Episode 3 -->
       <div class="episode-card">
         <div class="ep-thumb-wrapper">
-          <img src="assets/gallery2.jpg" alt="에피소드 3 썸네일">
-          <div class="ep-play-overlay">
-            <div class="ep-play-icon">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
+          <img src="assets/river1.jpg" alt="에피소드 3 썸네일">
+          <div class="ep-play-overlay"><div class="ep-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
         </div>
         <div class="ep-info">
-          <div class="ep-num-title">
-            <span class="ep-title">E3. 잊지 못할 약속 (PROPOSE)</span>
-            <span class="ep-duration">2025.12</span>
-          </div>
+          <div class="ep-num-title"><span class="ep-title">E3. 잊지 못할 약속 (PROPOSE)</span><span class="ep-duration">2025.12</span></div>
           <p class="ep-desc">반짝이는 밤하늘 아래, 평생을 함께하자는 낭만적이고 아름다운 청혼의 순간.</p>
         </div>
       </div>
-
-      <!-- Episode 4 -->
       <div class="episode-card">
         <div class="ep-thumb-wrapper">
           <img src="assets/poster.jpg" alt="에피소드 4 썸네일">
-          <div class="ep-play-overlay">
-            <div class="ep-play-icon">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
+          <div class="ep-play-overlay"><div class="ep-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
         </div>
         <div class="ep-info">
-          <div class="ep-num-title">
-            <span class="ep-title">E4. 결실의 날 (WEDDING DAY)</span>
-            <span class="ep-duration">2026.10</span>
-          </div>
+          <div class="ep-num-title"><span class="ep-title">E4. 결실의 날 (WEDDING DAY)</span><span class="ep-duration">2026.10</span></div>
           <p class="ep-desc">2026년 10월 9일 금요일 오후 1시, 하객 여러분 앞에서 약속하는 영원의 장.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 📸 7. PHOTO GALLERY (BEHIND THE SCENES) -->
+
+
+
+  <!-- 📸 7. PHOTO GALLERY (BEHIND THE SCENES - NETFLIX TOP 10 STYLE) -->
   <section class="section-wrapper">
-    <h2 class="section-title">비하인드 컷 (GALLERY)</h2>
-    <div class="gallery-category-title">화제의 웨딩 스틸컷 & 인기 화보</div>
+    <h2 class="section-title">대한민국의 TOP 10 비하인드 컷</h2>
+    <div class="gallery-category-title">화제의 웨딩 스틸컷 &amp; 인기 화보</div>
     
-    <div class="gallery-horizontal-scroll">
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">MAIN</span>
-        <img src="assets/main_page.jpg" alt="메인 포스터">
+    <div class="top10-carousel">
+      
+      <!-- TOP 1: poster -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/poster.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
+        <div class="top10-number">1</div>
+        <div class="top10-poster-card">
+          <img src="assets/poster.jpg" alt="메인 포스터">
+          <div class="top10-badge-container two-tone">
+            <span class="top10-badge-red-top">최신 등록</span>
+            <span class="top10-badge-white-bottom">더보기</span>
+          </div>
+        </div>
       </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">POSTER</span>
-        <img src="assets/poster.jpg" alt="웨딩 포스터">
+
+      <!-- TOP 2: river_main -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+        <div class="top10-number">2</div>
+        <div class="top10-poster-card">
+          <img src="assets/river_main.jpg" alt="웨딩 화보 2">
+          <div class="top10-badge-container two-tone">
+            <span class="top10-badge-red-top">새로운 에피소드</span>
+            <span class="top10-badge-white-bottom">더보기</span>
+          </div>
+        </div>
       </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GALLERY 01</span>
-        <img src="assets/gallery1.jpg" alt="웨딩 화보 1">
+
+      <!-- TOP 3: groom_main -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/groom_main.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
+        <div class="top10-number">3</div>
+        <div class="top10-poster-card">
+          <img src="assets/groom_main.jpg" alt="신랑 윤현진">
+          <div class="top10-badge-container two-tone">
+            <span class="top10-badge-red-top">주연 배우</span>
+            <span class="top10-badge-white-bottom">더보기</span>
+          </div>
+        </div>
       </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GALLERY 02</span>
-        <img src="assets/gallery2.jpg" alt="웨딩 화보 2">
+
+      <!-- TOP 4: bride_main -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/bride_main.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+        <div class="top10-number">4</div>
+        <div class="top10-poster-card">
+          <img src="assets/bride_main.jpg" alt="신부 한지수">
+          <div class="top10-badge-container two-tone">
+            <span class="top10-badge-red-top">주연 배우</span>
+            <span class="top10-badge-white-bottom">더보기</span>
+          </div>
+        </div>
       </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GALLERY 03</span>
-        <img src="assets/gallery3.jpg" alt="웨딩 화보 3">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GALLERY 04</span>
-        <img src="assets/gallery4.jpg" alt="웨딩 화보 4">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GALLERY 05</span>
-        <img src="assets/gallery5.jpg" alt="웨딩 화보 5">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">GROOM</span>
-        <img src="assets/groom_main.jpg" alt="신랑 윤현진">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">BRIDE</span>
-        <img src="assets/bride_main.jpg" alt="신부 한지수">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">BRIDE 01</span>
-        <img src="assets/bride1.jpg" alt="신부 화보 1">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">BRIDE 02</span>
-        <img src="assets/bride2.jpg" alt="신부 화보 2">
-      </div>
-      <div class="gallery-item-card">
-        <span class="gallery-item-badge">BRIDE 03</span>
-        <img src="assets/bride3.jpg" alt="신부 화보 3">
-      </div>
+
     </div>
   </section>
 
-  <!-- 📍 8. VENUE & LOCATION (오시는 길) -->
-  <section id="venue" class="section-wrapper">
-    <h2 class="section-title">상영관 (오시는 길)</h2>
-    
-    <div class="venue-info-card">
-      <div class="venue-name">노블발렌티 삼성점</div>
-      <div class="venue-hall">단독홀</div>
-      <div class="venue-address">서울특별시 강남구 봉은사로 637 (노블발렌티 삼성점)</div>
-    </div>
+  <!-- 📸 GROUP GALLERY POPUP MODALS -->
 
-    <!-- Map Container -->
-    <div class="map-placeholder-box">
-      <iframe src="https://maps.google.com/maps?q=%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
-    </div>
-
-    <!-- Navigation Buttons -->
-    <div class="nav-buttons-grid">
-      <a href="https://map.naver.com/v5/search/%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90" target="_blank" rel="noopener noreferrer" class="btn-nav-app">
-        🟢 네이버 지도
-      </a>
-      <a href="https://map.kakao.com/link/search/%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90" target="_blank" rel="noopener noreferrer" class="btn-nav-app">
-        🟡 카카오맵
-      </a>
-    </div>
-
-    <button class="btn-copy-address" onclick="copyAddress()">
-      📋 예식장 주소 복사하기
-    </button>
-
-    <div class="transport-details">
-      <div class="transport-item">
-        <div class="transport-title">🚇 지하철 이용 안내</div>
-        <div class="transport-desc">
-          • 9호선 봉은사역 4번 출구 도보 약 4분<br>
-          • 2호선 삼성역 7번 출구 도보 약 15분
+  <!-- Group 1 -->
+  <div id="groupModal1" class="group-gallery-overlay" onclick="closeGroupGallery('group1', event)">
+    <div class="group-gallery-card" onclick="event.stopPropagation()">
+      <div class="group-gallery-header">
+        <span class="group-gallery-title">🎬 #1 메인 포스터 컷</span>
+        <button class="group-gallery-close" onclick="closeGroupGallery('group1')">✕</button>
+      </div>
+      <div class="group-gallery-grid">
+        <div class="group-gallery-item" onclick="openLightbox('assets/poster.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
+          <img src="assets/poster.jpg" alt="포스터">
+          <span class="group-item-label">포스터</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden1.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
+          <img src="assets/garden1.jpg" alt="정원 화보 1">
+          <span class="group-item-label">정원 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden2.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
+          <img src="assets/garden2.jpg" alt="정원 화보 2">
+          <span class="group-item-label">정원 #2</span>
         </div>
       </div>
-      <div class="transport-item">
-        <div class="transport-title">🚌 버스 이용 안내</div>
-        <div class="transport-desc">
-          9호선 봉은사역 3번 출구 삼성 1파출소<br>
-          • 간선 : 143, 146, 301, 343, 401<br>
-          • 지선 : 2413, 2415, 3217, 3414, 4318<br>
-          • 직행 : 9407, 9507, 9607
-        </div>
-      </div>
-      <div class="transport-item">
-        <div class="transport-title">🅿️ 주차 안내</div>
-        <div class="transport-desc">노블발렌티 전용 주차장 및 인근 주차장 무료 주차 지원<br>300대 주차가능 - 2시간 무료</div>
-      </div>
-      <div class="transport-item">
-        <div class="transport-title-inline">
-          <span class="transport-title">🚍 셔틀버스 안내</span>
-          <button id="btnViewShuttleMap" class="btn-icon-map" title="약도 보기">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          </button>
-        </div>
-        <div class="transport-desc">봉은사역 5번출구 우측 50~60m (5분 간격)</div>
-      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ✉️ 9. RSVP SECTION & MODAL -->
-  <section class="section-wrapper">
-    <div class="rsvp-section-cta">
-      <div class="rsvp-cta-title">시청 예약 (참석 여부 전달)</div>
-      <p class="rsvp-cta-desc">원활한 예식 진행을 위해 참석 여부를 미리 전달해 주시면 감사하겠습니다.</p>
-      <button class="btn-open-rsvp btn-trigger-rsvp">참석 여부 전달하기 (RSVP)</button>
+  <!-- Group 2 -->
+  <div id="groupModal2" class="group-gallery-overlay" onclick="closeGroupGallery('group2', event)">
+    <div class="group-gallery-card" onclick="event.stopPropagation()">
+      <div class="group-gallery-header">
+        <span class="group-gallery-title">🎬 #2 리버 화보 컷</span>
+        <button class="group-gallery-close" onclick="closeGroupGallery('group2')">✕</button>
+      </div>
+      <div class="group-gallery-grid">
+        <div class="group-gallery-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+          <img src="assets/river_main.jpg" alt="리버 메인">
+          <span class="group-item-label">리버 메인</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river1.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+          <img src="assets/river1.jpg" alt="리버 화보 1">
+          <span class="group-item-label">리버 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river2.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+          <img src="assets/river2.jpg" alt="리버 화보 2">
+          <span class="group-item-label">리버 #2</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river3.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+          <img src="assets/river3.jpg" alt="리버 화보 3">
+          <span class="group-item-label">리버 #3</span>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <!-- Group 3 -->
+  <div id="groupModal3" class="group-gallery-overlay" onclick="closeGroupGallery('group3', event)">
+    <div class="group-gallery-card" onclick="event.stopPropagation()">
+      <div class="group-gallery-header">
+        <span class="group-gallery-title">🎬 #3 신랑 윤현진</span>
+        <button class="group-gallery-close" onclick="closeGroupGallery('group3')">✕</button>
+      </div>
+      <div class="group-gallery-grid">
+        <div class="group-gallery-item" onclick="openLightbox('assets/groom_main.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
+          <img src="assets/groom_main.jpg" alt="신랑 메인">
+          <span class="group-item-label">신랑 메인</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/groom1.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
+          <img src="assets/groom1.jpg" alt="신랑 화보 1">
+          <span class="group-item-label">신랑 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/gallery5.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
+          <img src="assets/gallery5.jpg" alt="웨딩 화보 5">
+          <span class="group-item-label">화보 #5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Group 4 -->
+  <div id="groupModal4" class="group-gallery-overlay" onclick="closeGroupGallery('group4', event)">
+    <div class="group-gallery-card" onclick="event.stopPropagation()">
+      <div class="group-gallery-header">
+        <span class="group-gallery-title">🎬 #4 신부 한지수</span>
+        <button class="group-gallery-close" onclick="closeGroupGallery('group4')">✕</button>
+      </div>
+      <div class="group-gallery-grid">
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride_main.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+          <img src="assets/bride_main.jpg" alt="신부 메인">
+          <span class="group-item-label">신부 메인</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride1.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+          <img src="assets/bride1.jpg" alt="신부 화보 1">
+          <span class="group-item-label">화보 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride2.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+          <img src="assets/bride2.jpg" alt="신부 화보 2">
+          <span class="group-item-label">화보 #2</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride3.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+          <img src="assets/bride3.jpg" alt="신부 화보 3">
+          <span class="group-item-label">화보 #3</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride4.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
+          <img src="assets/bride4.jpg" alt="신부 화보 4">
+          <span class="group-item-label">화보 #4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- 💳 10. GIFT ACCOUNTS (마음 전하실 곳) -->
-  <section class="section-wrapper">
+  <section id="accounts" class="section-wrapper">
     <h2 class="section-title">마음 전하실 곳 (GIFT CODE)</h2>
     
     <div class="account-accordion">
@@ -512,8 +482,17 @@
     </div>
   </section>
 
+  <!-- ✉️ 10. RSVP SECTION (참석여부) -->
+  <section id="rsvp" class="section-wrapper">
+    <div class="rsvp-section-cta">
+      <div class="rsvp-cta-title">시청 예약 (참석 여부 전달)</div>
+      <p class="rsvp-cta-desc">원활한 예식 진행을 위해 참석 여부를 미리 전달해 주시면 감사하겠습니다.</p>
+      <button class="btn-open-rsvp btn-trigger-rsvp">참석 여부 전달하기 (RSVP)</button>
+    </div>
+  </section>
+
   <!-- 💬 11. GUESTBOOK (시청 후기) -->
-  <section class="section-wrapper">
+  <!-- <section class="section-wrapper">
     <h2 class="section-title">시청 후기 (GUESTBOOK)</h2>
     
     <form id="guestbookForm" class="guestbook-form">
@@ -529,9 +508,8 @@
     </form>
 
     <div id="guestbookList" class="guestbook-list">
-      <!-- Guestbook cards loaded dynamically via JS -->
     </div>
-  </section>
+  </section> -->
 
   <!-- 🏷️ FOOTER -->
   <footer>
@@ -541,10 +519,10 @@
   </footer>
 
   <!-- 🔍 RSVP MODAL POPUP -->
-  <div id="rsvpModal" class="modal-overlay">
-    <div class="modal-card">
-      <button id="closeRsvpBtn" class="modal-close-icon">✕</button>
-      <div class="modal-title">시청 예약 (참석 여부)</div>
+  <div id="rsvpModal" class="rsvp-modal-overlay">
+    <div class="rsvp-modal-card">
+      <button id="closeRsvpBtn" class="rsvp-modal-close-icon">✕</button>
+      <div class="rsvp-modal-title">시청 예약 (참석 여부)</div>
       
       <form id="rsvpForm">
         <div class="form-group">
@@ -581,14 +559,301 @@
     </div>
   </div>
 
+  <!-- 🎟️ CGV MOBILE TICKET POPUP MODAL -->
+  <div id="synopsisModal" class="modal-overlay" onclick="closeSynopsisModal(event)">
+    <div class="cgv-ticket-modal-card" onclick="event.stopPropagation()">
+      <div class="cgv-bottom-sheet-handle"></div>
+      
+      <!-- 1. CGV TICKET TOP HEADER BAR -->
+      <div class="cgv-top-bar">
+        <div class="cgv-booking-num">
+          <span>예매번호</span>
+          <strong>2026-0625-0606-1009</strong>
+        </div>
+        <div class="cgv-top-icons">
+          <button class="cgv-icon-btn" onclick="toggleCalendarSection()" title="달력보기">
+            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          </button>
+          <button class="cgv-icon-btn" onclick="shareTicketLink()" title="공유하기">
+            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE TICKET BODY (POSTER + WHITE CARD SCROLL TOGETHER) -->
+      <div class="cgv-ticket-scroll-body">
+        <!-- 2. CGV MOVIE POSTER HERO BANNER -->
+        <div class="cgv-poster-banner">
+          <img src="assets/gallery5.jpg" alt="윤현진 ♥ 한지수 영화 포스터">
+          <div class="cgv-poster-overlay">
+            <h1 class="cgv-movie-title">윤현진♥한지수 - 파트 1</h1>
+            <p class="cgv-movie-eng">Hyunjin & Jisoo: Wedding Day</p>
+            <div class="cgv-movie-meta">
+              <span class="cgv-badge-2d">2D</span>
+              <span class="cgv-meta-sep">|</span>
+              <span>전체관람가</span>
+              <span class="cgv-meta-sep">|</span>
+              <span>로맨스/드라마</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CGV WHITE TICKET CARD MAIN BODY -->
+        <div class="cgv-ticket-white-card">
+          
+          <div class="cgv-ticket-grid">
+            <!-- Left Column (Showtime & Theater Info) -->
+            <div class="cgv-info-left">
+              
+              <div class="cgv-info-group">
+                <span class="cgv-label">상영일</span>
+                <div class="cgv-date-row">
+                  <span class="cgv-date-big">10/9</span>
+                  <span class="cgv-date-day">(금)</span>
+                </div>
+              </div>
+
+              <div class="cgv-info-group">
+                <span class="cgv-label">상영시간</span>
+                <div class="cgv-time-row">
+                  <span class="cgv-time-big">13:00</span>
+                  <span class="cgv-time-end">~ 15:00</span>
+                </div>
+              </div>
+
+              <div class="cgv-info-group">
+                <span class="cgv-label">상영관</span>
+                <div class="cgv-text-bold">노블발렌티 삼성점</div>
+                <div class="cgv-text-sub">Chapel Hall (Laser)</div>
+              </div>
+
+              <div class="cgv-info-group cgv-seat-group">
+                <span class="cgv-label">좌석</span>
+                <div class="cgv-text-bold">하객 1</div>
+                <div class="cgv-seat-bottom-row">
+                  <div class="cgv-text-bold cgv-no-wrap">NOBLE VALENTI (5층 웨딩홀)</div>
+                  <button class="cgv-btn-pill-outline" onclick="toggleCalendarSection()">
+                    달력보기
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column (QR Code & Notification Button) -->
+            <div class="cgv-info-right">
+              <div class="cgv-qr-box">
+                <img id="cgvTicketQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmobileinvitation-pink.vercel.app%2F" alt="모바일 청첩장 QR코드" style="width:100%; height:100%; object-fit:contain; border-radius:4px; display:block;">
+              </div>
+              <button class="cgv-btn-pill-fill" onclick="goToRsvpSection()">
+                <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+                입장알림 (RSVP)
+              </button>
+            </div>
+          </div>
+
+          <!-- 📖 COLLAPSIBLE SYNOPSIS & CALENDAR -->
+          <div id="cgvCalendarContainer" class="cgv-collapsible-section">
+            <div class="cgv-divider-line"></div>
+
+            <!-- 📅 2026 OCTOBER WEDDING CALENDAR -->
+            <div class="wedding-calendar-box cgv-calendar-box">
+              <div class="calendar-header">
+                <span class="calendar-month-title">2026.10</span>
+              </div>
+              <div class="calendar-grid">
+                <div class="cal-day-name sunday">일</div>
+                <div class="cal-day-name">월</div>
+                <div class="cal-day-name">화</div>
+                <div class="cal-day-name">수</div>
+                <div class="cal-day-name">목</div>
+                <div class="cal-day-name">금</div>
+                <div class="cal-day-name saturday">토</div>
+
+                <div class="cal-date empty"></div>
+                <div class="cal-date empty"></div>
+                <div class="cal-date empty"></div>
+                <div class="cal-date empty"></div>
+
+                <div class="cal-date">1</div>
+                <div class="cal-date">2</div>
+                <div class="cal-date holiday">3</div>
+
+                <div class="cal-date sunday">4</div>
+                <div class="cal-date holiday">5</div>
+                <div class="cal-date">6</div>
+                <div class="cal-date">7</div>
+                <div class="cal-date">8</div>
+                <div class="cal-date holiday wedding-dday">
+                  <span class="dday-circle">9</span>
+                  <span class="dday-time-tag">한글날 오후 1시</span>
+                </div>
+                <div class="cal-date saturday">10</div>
+
+                <div class="cal-date sunday">11</div>
+                <div class="cal-date">12</div>
+                <div class="cal-date">13</div>
+                <div class="cal-date">14</div>
+                <div class="cal-date">15</div>
+                <div class="cal-date">16</div>
+                <div class="cal-date saturday">17</div>
+
+                <div class="cal-date sunday">18</div>
+                <div class="cal-date">19</div>
+                <div class="cal-date">20</div>
+                <div class="cal-date">21</div>
+                <div class="cal-date">22</div>
+                <div class="cal-date">23</div>
+                <div class="cal-date saturday">24</div>
+
+                <div class="cal-date sunday">25</div>
+                <div class="cal-date">26</div>
+                <div class="cal-date">27</div>
+                <div class="cal-date">28</div>
+                <div class="cal-date">29</div>
+                <div class="cal-date">30</div>
+                <div class="cal-date saturday">31</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. CGV NOTICE BULLET LIST -->
+          <div class="cgv-notice-list">
+            <p>· 예식 지연에 따른 하객 불편을 최소화하기 위해 본 예식은 13시 정시에 시작됩니다.</p>
+            <p>· 축복과 기쁨으로 가득한 자리이며 캡처화면으로도 자유롭게 입장이 가능합니다.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5. CGV BOTTOM STICKY RED BUTTON BAR -->
+      <div class="cgv-bottom-bar">
+        <button class="cgv-bottom-btn" onclick="goToAccountSection()">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83l1.41 1.41L12 8.41l3.59 3.83L17 10.83 14.92 8H20v6z"/></svg>
+          선물하기 (축의금)
+        </button>
+        <span class="cgv-bar-divider">|</span>
+        <button class="cgv-bottom-btn" onclick="closeSynopsisModal()">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          창 닫기
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 📍 CGV VENUE / LOCATION MAP POPUP MODAL -->
+  <div id="venueModal" class="venue-modal-overlay" onclick="closeVenueModal(event)">
+    <div class="cgv-venue-modal-card dark-venue-card" onclick="event.stopPropagation()">
+      
+      <!-- Modal Top Bar -->
+      <div class="cgv-top-bar dark-top-bar">
+        <div class="cgv-booking-num">
+          <span>LOCATION GUIDE</span>
+        </div>
+        <div class="cgv-top-icons">
+          <button class="cgv-icon-btn" onclick="copyAddress()" title="주소복사">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          </button>
+          <button class="cgv-icon-btn" onclick="closeVenueModal(event)" title="닫기">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="cgv-venue-modal-body">
+        
+        <div class="venue-info-card dark-info-card">
+          <div class="venue-name">노블발렌티 삼성점</div>
+          <div class="venue-hall">Chapel Hall (5층 웨딩홀)</div>
+          <div class="venue-address">서울특별시 강남구 봉은사로 637 (삼성동)</div>
+        </div>
+
+        <!-- Google Map / Interactive Iframe -->
+        <div class="map-placeholder-box dark-map-box">
+          <iframe src="https://maps.google.com/maps?q=%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <!-- Navigation Map Apps -->
+        <div class="nav-buttons-grid dark-nav-grid">
+          <a href="https://map.naver.com/v5/search/%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90" target="_blank" rel="noopener noreferrer" class="btn-nav-app minimal-dark">
+            <svg class="nav-app-icon naver-icon" viewBox="0 0 24 24">
+              <path fill="#03CF5D" d="M16.273 12.845L7.376 0H0v24h7.727v-12.845L16.624 24H24V0h-7.727z"/>
+            </svg>
+            네이버 지도
+          </a>
+          <a href="https://map.kakao.com/link/search/%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90" target="_blank" rel="noopener noreferrer" class="btn-nav-app minimal-dark">
+            <svg class="nav-app-icon kakao-icon" viewBox="0 0 24 24">
+              <path fill="#FEE500" d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.557 1.707 4.8 4.27 6.054-.188.702-.68 2.541-.777 2.928-.12.48.176.474.37.345.153-.102 2.434-1.654 3.424-2.326.56.082 1.135.126 1.713.126 4.97 0 9-3.186 9-7.127C21 6.185 16.97 3 12 3z"/>
+            </svg>
+            카카오맵
+          </a>
+        </div>
+
+        <button class="btn-copy-address minimal-dark" onclick="copyAddress()">
+          📋 예식장 주소 복사하기
+        </button>
+
+        <!-- Transport Details -->
+        <div class="transport-details dark-transport">
+          <div class="transport-item">
+            <div class="transport-title">🚇 지하철 이용 안내</div>
+            <div class="transport-desc">
+              • 9호선 봉은사역 4번 출구 도보 약 4분<br>
+              • 2호선 삼성역 7번 출구 도보 약 15분
+            </div>
+          </div>
+          <div class="transport-item">
+            <div class="transport-title">🚌 버스 이용 안내</div>
+            <div class="transport-desc">
+              9호선 봉은사역 3번 출구 삼성 1파출소<br>
+              • 간선 : 143, 146, 301, 343, 401<br>
+              • 지선 : 2413, 2415, 3217, 3414, 4318<br>
+              • 직행 : 9407, 9507, 9607
+            </div>
+          </div>
+          <div class="transport-item">
+            <div class="transport-title">🅿️ 주차 안내</div>
+            <div class="transport-desc">노블발렌티 전용 주차장 및 인근 주차장 무료 주차 지원<br>300대 주차가능 - 2시간 무료</div>
+          </div>
+          <div class="transport-item">
+            <div class="transport-title-inline">
+              <span class="transport-title">🚍 셔틀버스 안내</span>
+              <button class="btn-icon-map" id="btnViewShuttleMap" onclick="openShuttleMap(event)" title="약도 보기">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              </button>
+            </div>
+            <div class="transport-desc">봉은사역 5번출구 우측 50~60m (5분 간격)</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Bottom Bar -->
+      <div class="cgv-bottom-bar dark-bottom-bar">
+        <button class="cgv-bottom-btn" onclick="copyAddress()">
+          📋 주소 복사하기
+        </button>
+        <span class="cgv-bar-divider">|</span>
+        <button class="cgv-bottom-btn" onclick="closeVenueModal(event)">
+          ✕ 닫기
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- 🖼️ LIGHTBOX MODAL -->
   <div id="lightboxModal" class="lightbox-modal">
-    <button id="lightboxCloseBtn" class="lightbox-close-btn">✕</button>
+    <button id="lightboxCloseBtn" class="lightbox-close-btn" onclick="closeLightbox()">✕</button>
     <div class="lightbox-content">
       <button id="lightboxPrevBtn" class="lightbox-nav-btn prev">‹</button>
       <img id="lightboxImg" class="lightbox-img" src="" alt="갤러리 확대보기">
       <button id="lightboxNextBtn" class="lightbox-nav-btn next">›</button>
     </div>
+    <!-- 도트 인디케이터 -->
+    <div id="lightboxDots" class="lightbox-dots"></div>
     <!-- 갤러리 하단 섬네일 리스트 -->
     <div id="lightboxThumbStrip" class="lightbox-thumb-strip"></div>
   </div>
