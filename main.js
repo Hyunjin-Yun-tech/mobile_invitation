@@ -862,24 +862,25 @@ function escapeHtml(str) {
   });
 }
 
-// ── 티켓 모달 (스와이프 다운 닫기) ────────────────────────
+// ── 티켓 모달 (손가락으로 쓸어내려 닫기 Swipe Down to Dismiss) ──
 function initTicketSwipeDown() {
   const modal = document.getElementById('synopsisModal');
   const card  = modal ? modal.querySelector('.cgv-ticket-modal-card') : null;
   const handle = card ? card.querySelector('.cgv-bottom-sheet-handle') : null;
   if (!modal || !card) return;
 
-  // 드래그 감지 영역: 핸들 또는 카드 상단 60px
-  const dragZone = handle || card;
-
   let startY = 0, currentY = 0, startTime = 0, isDragging = false;
 
   function onTouchStart(e) {
-    // 스크롤 가능한 내부 영역이면 무시
-    const scrollable = e.target.closest('.cgv-ticket-body, .cgv-ticket-scroll');
-    if (scrollable && scrollable.scrollTop > 0) return;
+    // 버튼이나 폼 요소 클릭이면 스와이프 제스처 무시
+    if (e.target.closest('button, input, select, textarea, a')) return;
+
+    // 내부 스크롤 영역이 최상단일 때만 아래로 스와이프 닫기 작동
+    const scrollable = e.target.closest('.cgv-ticket-body, .cgv-ticket-scroll, .cgv-venue-modal-body');
+    if (scrollable && scrollable.scrollTop > 5) return;
 
     startY = e.touches[0].clientY;
+    currentY = startY;
     startTime = Date.now();
     isDragging = true;
     card.classList.add('dragging');
@@ -888,27 +889,23 @@ function initTicketSwipeDown() {
   function onTouchMove(e) {
     if (!isDragging) return;
     currentY = e.touches[0].clientY;
-    const dy = Math.max(0, currentY - startY); // 아래 방향만
-    card.style.transform = `translateY(${dy}px)`;
-  }
+    const dy = currentY - startY;
 
-  // ── 핸들바 직접 클릭 시 아래로 부드럽게 닫기 ─────
-  if (handle) {
-    handle.onclick = (e) => {
-      e.stopPropagation();
-      closeDownwards();
-    };
+    if (dy > 0) {
+      // 아래로 끌어당길 때 손가락을 자연스럽게 따라 내려옴
+      card.style.transform = `translateY(${dy}px)`;
+    }
   }
 
   function closeDownwards() {
-    card.style.transition = 'transform 0.32s cubic-bezier(0.4, 0, 1, 1)';
+    card.style.transition = 'transform 0.28s cubic-bezier(0.4, 0, 1, 1)';
     card.style.transform = 'translateY(100%)';
     setTimeout(() => {
       modal.classList.remove('active');
       unlockBodyScroll();
       card.style.transform = '';
       card.style.transition = '';
-    }, 320);
+    }, 280);
   }
 
   function onTouchEnd() {
@@ -916,22 +913,33 @@ function initTicketSwipeDown() {
     isDragging = false;
     card.classList.remove('dragging');
 
-    const dy = Math.max(0, currentY - startY);
+    const dy = currentY - startY;
     const dt = Date.now() - startTime;
-    const velocity = dy / dt; // px/ms
+    const velocity = dt > 0 ? dy / dt : 0; // 속도 (px/ms)
 
-    // 단순 탭/클릭이거나 (터치 이동 거의 없고 250ms 이내) 100px 이상 쓸어내리거나 플릭 → 닫기
-    if ((dy < 8 && dt < 250) || dy > 100 || velocity > 0.4) {
+    // 60px 이상 아래로 쓸어내렸거나, 빠르게 아래로 튕긴(Flick) 경우 닫기
+    if (dy > 60 || (dy > 25 && velocity > 0.3)) {
       closeDownwards();
     } else {
-      // 원위치 복구
-      card.style.transition = 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)';
+      // 60px 미만인 경우 원위치 복구
+      card.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
       card.style.transform = 'translateY(0)';
-      setTimeout(() => { card.style.transition = ''; }, 320);
+      setTimeout(() => {
+        card.style.transition = '';
+      }, 250);
     }
   }
 
-  dragZone.addEventListener('touchstart', onTouchStart, { passive: true });
+  // 핸들바 클릭 시에도 사르륵 닫힘
+  if (handle) {
+    handle.onclick = (e) => {
+      e.stopPropagation();
+      closeDownwards();
+    };
+  }
+
+  // 카드 전체 영역 터치 이벤트 바인딩
+  card.addEventListener('touchstart', onTouchStart, { passive: true });
   card.addEventListener('touchmove',  onTouchMove,  { passive: true });
   card.addEventListener('touchend',   onTouchEnd);
 }
@@ -945,16 +953,24 @@ window.openSynopsisModal = function(e) {
   if (modal) {
     modal.classList.add('active');
     lockBodyScroll();
-    initTicketSwipeDown(); // 열 때마다 제스처 초기화
+    initTicketSwipeDown(); // 열 때마다 스와이프 제스처 초기화
   }
 };
 
 window.closeSynopsisModal = function(e) {
-  if (e && e.target !== e.currentTarget && !e.target.closest('.cgv-icon-btn') && !e.target.closest('.cgv-bottom-btn')) {
-    return;
-  }
   const modal = document.getElementById('synopsisModal');
-  if (modal) {
+  const card  = modal ? modal.querySelector('.cgv-ticket-modal-card') : null;
+  
+  if (card) {
+    card.style.transition = 'transform 0.28s cubic-bezier(0.4, 0, 1, 1)';
+    card.style.transform = 'translateY(100%)';
+    setTimeout(() => {
+      if (modal) modal.classList.remove('active');
+      unlockBodyScroll();
+      card.style.transform = '';
+      card.style.transition = '';
+    }, 280);
+  } else if (modal) {
     modal.classList.remove('active');
     unlockBodyScroll();
   }
@@ -1012,26 +1028,58 @@ window.toggleCalendarSection = function() {
   }
 };
 
-// ──────────────────────────────────────────────────────────────────────────
-// 💡 카카오톡 [청첩장 보기] [위치 보기] 2개 버튼 메시지 카드용 앱키 설정
-// (https://developers.kakao.com 에서 발급받으신 JavaScript 키를 아래에 넣어주시면
-//  카카오톡으로 공유할 때 예시 사진과 100% 똑같은 [청첩장 보기] [위치 보기] 버튼 카드로 날아갑니다!)
-// ──────────────────────────────────────────────────────────────────────────
+// ── 카카오톡 [위치 보기] 버튼 터치 시 네이버 지도 노블발렌티 삼성점으로 100% 즉시 이동 ──
+(function checkNaverMapRedirect() {
+  try {
+    const href = window.location.href;
+    const search = window.location.search;
+    const hash = window.location.hash;
+
+    if (search.indexOf('go=navermap') !== -1 || hash.indexOf('naverMap') !== -1 || href.indexOf('navermap') !== -1 || search.indexOf('go=kakaomap') !== -1) {
+      window.location.replace("https://map.naver.com/v5/search/%EB%85%B8%EB%B8%94%EB%B0%9C%EB%A0%8C%ED%8B%B0%20%EC%82%BC%EC%84%B1%EC%A0%90");
+    }
+  } catch(e) {}
+})();
+
+// ── 🎟️ 공유 드롭다운 메뉴 토글 & 링크 복사 ──────────────────────────
+window.toggleShareDropdown = function(e) {
+  if (e) {
+    if (typeof e.stopPropagation === 'function') e.stopPropagation();
+  }
+  const menu = document.getElementById('shareDropdownMenu');
+  if (menu) {
+    menu.classList.toggle('active');
+  }
+};
+
+window.copyShareLink = function() {
+  const shareUrl = "https://mobileinvitation-pink.vercel.app";
+  copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 클립보드에 복사되었습니다.");
+};
+
+// 외부 영역 터치/클릭 시 공유 드롭다운 자동 닫기
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('shareDropdownMenu');
+  if (menu && menu.classList.contains('active') && !e.target.closest('.cgv-share-dropdown-wrapper')) {
+    menu.classList.remove('active');
+  }
+});
+
 const KAKAO_JAVASCRIPT_APP_KEY = "42777bbeb7baf39ddbc931d9990aef3a";
 
 window.shareTicketLink = function() {
-  const shareUrl = "https://mobileinvitation-pink.vercel.app/";
-  const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/poster.jpg";
+  const shareUrl = "https://mobileinvitation-pink.vercel.app";
+  const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/river2.jpg";
   const title = "윤현진 ♥ 한지수 결혼합니다";
   const desc = "2026년 10월 9일 금요일 오후 1시\n노블발렌티 삼성점";
 
-  // 1. 카카오 앱키가 입력되어 있는 경우: 캡처와 100% 동일한 [청첩장 보기], [위치 보기] 2개 버튼 카드 발송
-  if (window.Kakao && KAKAO_JAVASCRIPT_APP_KEY && KAKAO_JAVASCRIPT_APP_KEY.trim() !== "") {
+  // 1. 카카오 공식 SDK 실행 (대형 포스터 사진 + [청첩장 보기/위치 보기] 2개 버튼 카드)
+  if (window.Kakao) {
     if (!window.Kakao.isInitialized()) {
       try {
-        window.Kakao.init(KAKAO_JAVASCRIPT_APP_KEY.trim());
+        window.Kakao.init(KAKAO_JAVASCRIPT_APP_KEY);
       } catch (e) {
-        console.log("Kakao init error:", e);
+        console.log("Kakao init:", e);
       }
     }
 
@@ -1059,30 +1107,22 @@ window.shareTicketLink = function() {
             {
               title: '위치 보기',
               link: {
-                mobileWebUrl: shareUrl + '#venueModal',
-                webUrl: shareUrl + '#venueModal',
+                mobileWebUrl: shareUrl + '?go=navermap#naverMap',
+                webUrl: shareUrl + '?go=navermap#naverMap',
               },
             },
           ],
         });
         return;
       } catch (err) {
-        console.log("Kakao Share error:", err);
+        console.log("Kakao Share send error:", err);
       }
     }
   }
 
-  // 2. 앱키 미입력 시 스마트폰 기본 시스템 공유
+  // 2. Fallback: 스마트폰 기본 공유
   if (navigator.share) {
-    navigator.share({
-      title: title,
-      text: desc,
-      url: shareUrl
-    }).catch((err) => {
-      if (err.name !== 'AbortError') {
-        copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 클립보드에 복사되었습니다.");
-      }
-    });
+    navigator.share({ url: shareUrl }).catch(() => {});
   } else {
     copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 클립보드에 복사되었습니다.");
   }

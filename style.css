@@ -864,6 +864,66 @@ img {
   margin-bottom: 2px;
 }
 
+/* ── 🎟️ CGV SHARE DROPDOWN MENU ────────────────────────────────────── */
+.cgv-share-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cgv-share-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 175px;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.95);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+.cgv-share-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.cgv-share-dropdown .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.cgv-share-dropdown .dropdown-item:hover,
+.cgv-share-dropdown .dropdown-item:active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.cgv-share-dropdown .dropdown-icon {
+  width: 18px;
+  height: 18px;
+  fill: #ffffff;
+  flex-shrink: 0;
+}
+
 /* ── 출연진 아코디언 (접기/펼치기) ────────────────── */
 .cast-accordion-btn {
   width: 100%;
