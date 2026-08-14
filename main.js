@@ -148,6 +148,13 @@ function initAudioSynth() {
     tudumBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       startBGM();
+
+      // 시청하기 클릭 시 화면 스크롤을 항상 최상단으로 이동
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+
       if (splashScreen) {
         splashScreen.classList.add("hidden");
         setTimeout(() => {
@@ -313,6 +320,7 @@ function initRSVPModal() {
       showToast(`🎉 ${name}님, 참석 여부가 성공적으로 전달되었습니다!`);
       form.reset();
       rsvpModal.classList.remove("active");
+      unlockBodyScroll();
     });
   }
 }
@@ -381,7 +389,10 @@ function initLightbox() {
   const btnShuttleMap = document.getElementById("btnViewShuttleMap");
   if (btnShuttleMap) {
     btnShuttleMap.addEventListener("click", () => {
-      if (lightboxImg) lightboxImg.src = "assets/shuttle_map.jpg";
+      if (lightboxImg) {
+        lightboxImg.src = "";
+        lightboxImg.src = "assets/shuttle_map.jpg";
+      }
       if (thumbStrip) thumbStrip.style.display = "none";
       if (prevBtn) prevBtn.style.display = "none";
       if (nextBtn) nextBtn.style.display = "none";
@@ -518,9 +529,32 @@ window.openLightbox = function(src, groupSrcs) {
 
   if (!lightboxModal || !lightboxImg) return;
 
-  const images = (groupSrcs && groupSrcs.length > 0) ? groupSrcs : [src];
+  // 비하인드 컷 전체 15장 연속 스와이프용 이미지 리스트
+  const ALL_BEHIND_IMAGES = [
+    'assets/poster.jpg',
+    'assets/garden1.jpg',
+    'assets/garden2.jpg',
+    'assets/river_main.jpg',
+    'assets/river1.jpg',
+    'assets/river2.jpg',
+    'assets/river3.jpg',
+    'assets/groom_main.jpg',
+    'assets/groom1.jpg',
+    'assets/gallery5.jpg',
+    'assets/bride_main.jpg',
+    'assets/bride1.jpg',
+    'assets/bride2.jpg',
+    'assets/bride3.jpg',
+    'assets/bride4.jpg'
+  ];
+
+  let images = ALL_BEHIND_IMAGES;
   let idx = images.indexOf(src);
-  if (idx < 0) idx = 0;
+  if (idx < 0) {
+    images = (groupSrcs && groupSrcs.length > 0) ? groupSrcs : [src];
+    idx = images.indexOf(src);
+    if (idx < 0) idx = 0;
+  }
   let isTransitioning = false;
 
   // ── 도트 (여러장일 때만) ──────────────────
@@ -642,10 +676,16 @@ window.openLightbox = function(src, groupSrcs) {
 
 window.closeLightbox = function() {
   const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImg   = document.getElementById('lightboxImg');
   if (lightboxModal) {
     lightboxModal.classList.remove('active');
   }
-  document.body.style.overflow = '';
+  if (lightboxImg) {
+    setTimeout(() => {
+      lightboxImg.src = '';
+    }, 200);
+  }
+  unlockBodyScroll();
 };
 
 
@@ -927,13 +967,16 @@ window.openShuttleMap = function(e) {
   const nextBtn = document.getElementById("lightboxNextBtn");
   const thumbStrip = document.getElementById("lightboxThumbStrip");
 
-  if (lightboxImg) lightboxImg.src = "assets/shuttle_map.jpg";
+  if (lightboxImg) {
+    lightboxImg.src = "";
+    lightboxImg.src = "assets/shuttle_map.jpg";
+  }
   if (thumbStrip) thumbStrip.style.display = "none";
   if (prevBtn) prevBtn.style.display = "none";
   if (nextBtn) nextBtn.style.display = "none";
   if (lightboxModal) {
     lightboxModal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    lockBodyScroll();
   }
 };
 

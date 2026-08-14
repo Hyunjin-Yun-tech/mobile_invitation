@@ -281,12 +281,14 @@ img {
 }
 
 .btn-quick-rsvp {
-  padding: 6px 14px;
+  padding: 5px 12px;
   background-color: var(--netflix-red);
   color: #fff;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: -0.3px;
 }
 
 /* --------------------------------------------------------------------------
@@ -906,9 +908,9 @@ img {
 }
 
 .cast-name-line {
-
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 32px;
   margin-bottom: 8px;
@@ -918,11 +920,10 @@ img {
 
 .cast-relation {
   font-family: var(--font-main);
-  font-size: 0.84rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 800;
   color: var(--gold-accent);
   letter-spacing: -0.3px;
-  width: 145px;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -937,12 +938,13 @@ img {
 
 .cast-name {
   font-family: var(--font-main);
-  font-size: 1.22rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: #ffffff;
-  letter-spacing: 9px;
-  padding-left: 9px;
+  letter-spacing: 8px;
+  margin-right: -8px;
   line-height: 1;
+  text-align: center;
 }
 
 .contact-btn-group {
@@ -1263,7 +1265,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 3;
+  z-index: 4;
 }
 
 .top10-badge-red {
@@ -1353,7 +1355,7 @@ img {
   max-width: 420px;
   background: #181818;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   transform: scale(0.9) translateY(20px);
@@ -1405,7 +1407,7 @@ img {
 .group-gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
+  gap: 6px;
   padding: 12px;
   background: #111;
 }
@@ -1417,7 +1419,7 @@ img {
 .group-gallery-item {
   position: relative;
   aspect-ratio: 2/3;
-  border-radius: 8px;
+  border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
   background: #222;
@@ -1435,6 +1437,7 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 18px;
 }
 
 .group-item-label {
@@ -1463,6 +1466,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 60px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -1498,22 +1502,23 @@ img {
 
 .lightbox-content {
   position: relative;
-  width: 100%;
-  max-width: 480px;
-  height: 62vh;
+  width: 94%;
+  max-width: 500px;
+  max-height: 78vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px;
+  padding: 0;
   overflow: hidden;
 }
 
 .lightbox-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
   object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+  border-radius: 0;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.95);
   transition: opacity 0.25s ease;
   user-select: none;
   -webkit-user-drag: none;
@@ -1576,11 +1581,14 @@ img {
 
 /* Lightbox Bottom Thumbnail Strip */
 .lightbox-thumb-strip {
-  margin-top: 10px;
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
   display: flex;
-  gap: 8px;
-  max-width: 100%;
-  padding: 6px 16px 10px;
+  gap: 6px;
+  width: 100%;
+  padding: 4px 16px;
   overflow-x: auto;
   justify-content: flex-start;
   scroll-behavior: smooth;
@@ -1593,10 +1601,10 @@ img {
 }
 
 .lightbox-thumb-item {
-  width: 62px;
-  height: 62px;
-  min-width: 62px;
-  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 4px;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
@@ -1621,6 +1629,8 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 4px;
+  display: block;
 }
 
 /* --------------------------------------------------------------------------
@@ -2635,7 +2645,9 @@ img {
   align-items: stretch;
   color: #ffffff;
   padding: 0;
-  min-height: 56px;
+  min-height: 48px;
+  height: 48px;
+  flex-shrink: 0;
 }
 
 .cgv-bottom-btn {
@@ -2643,14 +2655,14 @@ img {
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 0.86rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   cursor: pointer;
-  padding: 14px 8px;
+  padding: 12px 8px;
   transition: background 0.18s;
 }
 
