@@ -170,6 +170,31 @@ function initAudioSynth() {
       toggleBGM(); // 음표 버튼 클릭 시 BGM 켜기/끄기 100% 토글
     });
   }
+
+  // ── 웹화면을 닫거나 다른 앱/탭으로 전환 시 배경음악 100% 즉시 정지 ──
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && audioEl && !audioEl.paused) {
+      audioEl.pause();
+      isAudioPlaying = false;
+      if (audioToggleBtn) {
+        audioToggleBtn.classList.remove("playing");
+        audioToggleBtn.style.color = "#FFFFFF";
+      }
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    if (audioEl) {
+      audioEl.pause();
+      audioEl.currentTime = 0;
+    }
+  });
+
+  window.addEventListener("beforeunload", () => {
+    if (audioEl) {
+      audioEl.pause();
+    }
+  });
 }
 
 // --------------------------------------------------------------------------
@@ -987,18 +1012,25 @@ window.toggleCalendarSection = function() {
   }
 };
 
+// ──────────────────────────────────────────────────────────────────────────
+// 💡 카카오톡 [청첩장 보기] [위치 보기] 2개 버튼 메시지 카드용 앱키 설정
+// (https://developers.kakao.com 에서 발급받으신 JavaScript 키를 아래에 넣어주시면
+//  카카오톡으로 공유할 때 예시 사진과 100% 똑같은 [청첩장 보기] [위치 보기] 버튼 카드로 날아갑니다!)
+// ──────────────────────────────────────────────────────────────────────────
+const KAKAO_JAVASCRIPT_APP_KEY = "42777bbeb7baf39ddbc931d9990aef3a";
+
 window.shareTicketLink = function() {
   const shareUrl = "https://mobileinvitation-pink.vercel.app/";
   const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/poster.jpg";
   const title = "윤현진 ♥ 한지수 결혼합니다";
   const desc = "2026년 10월 9일 금요일 오후 1시\n노블발렌티 삼성점";
 
-  // 1. 첨부해주신 이미지 샘플과 100% 동일한 대형 카드 포맷으로 전송
-  if (window.Kakao) {
+  // 1. 카카오 앱키가 입력되어 있는 경우: 캡처와 100% 동일한 [청첩장 보기], [위치 보기] 2개 버튼 카드 발송
+  if (window.Kakao && KAKAO_JAVASCRIPT_APP_KEY && KAKAO_JAVASCRIPT_APP_KEY.trim() !== "") {
     if (!window.Kakao.isInitialized()) {
       try {
-        window.Kakao.init('e0db149021a8be04ef3dbd39be27aa21');
-      } catch(e) {
+        window.Kakao.init(KAKAO_JAVASCRIPT_APP_KEY.trim());
+      } catch (e) {
         console.log("Kakao init error:", e);
       }
     }
@@ -1035,26 +1067,24 @@ window.shareTicketLink = function() {
         });
         return;
       } catch (err) {
-        console.log("Kakao share error:", err);
+        console.log("Kakao Share error:", err);
       }
     }
   }
 
-  // 2. Fallback: 시스템 기본 공유 시트 및 링크 복사
-  const shareData = {
-    title: title,
-    text: desc,
-    url: shareUrl
-  };
-
+  // 2. 앱키 미입력 시 스마트폰 기본 시스템 공유
   if (navigator.share) {
-    navigator.share(shareData).catch((err) => {
+    navigator.share({
+      title: title,
+      text: desc,
+      url: shareUrl
+    }).catch((err) => {
       if (err.name !== 'AbortError') {
-        copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 복사되었습니다.");
+        copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 클립보드에 복사되었습니다.");
       }
     });
   } else {
-    copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 복사되었습니다.");
+    copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 클립보드에 복사되었습니다.");
   }
 };
 
