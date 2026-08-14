@@ -988,20 +988,73 @@ window.toggleCalendarSection = function() {
 };
 
 window.shareTicketLink = function() {
+  const shareUrl = "https://mobileinvitation-pink.vercel.app/";
+  const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/poster.jpg";
+  const title = "윤현진 ♥ 한지수 결혼합니다";
+  const desc = "2026년 10월 9일 금요일 오후 1시\n노블발렌티 삼성점";
+
+  // 1. 첨부해주신 이미지 샘플과 100% 동일한 대형 카드 포맷으로 전송
+  if (window.Kakao) {
+    if (!window.Kakao.isInitialized()) {
+      try {
+        window.Kakao.init('e0db149021a8be04ef3dbd39be27aa21');
+      } catch(e) {
+        console.log("Kakao init error:", e);
+      }
+    }
+
+    if (window.Kakao.isInitialized() && window.Kakao.Share) {
+      try {
+        window.Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: title,
+            description: desc,
+            imageUrl: posterUrl,
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl,
+            },
+          },
+          buttons: [
+            {
+              title: '청첩장 보기',
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl,
+              },
+            },
+            {
+              title: '위치 보기',
+              link: {
+                mobileWebUrl: shareUrl + '#venueModal',
+                webUrl: shareUrl + '#venueModal',
+              },
+            },
+          ],
+        });
+        return;
+      } catch (err) {
+        console.log("Kakao share error:", err);
+      }
+    }
+  }
+
+  // 2. Fallback: 시스템 기본 공유 시트 및 링크 복사
   const shareData = {
-    title: '윤현진 ♥ 한지수 결혼합니다 🎟️',
-    text: '2026년 10월 9일 금요일 오후 1시 노블발렌티 삼성점 모바일 청첩장',
-    url: window.location.href || "https://mobileinvitation-pink.vercel.app/"
+    title: title,
+    text: desc,
+    url: shareUrl
   };
 
   if (navigator.share) {
     navigator.share(shareData).catch((err) => {
       if (err.name !== 'AbortError') {
-        copyToClipboard(shareData.url, "🎟️ 청첩장 링크가 복사되었습니다.");
+        copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 복사되었습니다.");
       }
     });
   } else {
-    copyToClipboard(shareData.url, "🎟️ 청첩장 링크가 복사되었습니다.");
+    copyToClipboard(shareUrl, "🎟️ 청첩장 링크가 복사되었습니다.");
   }
 };
 
