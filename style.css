@@ -856,11 +856,12 @@ img {
 }
 
 .cast-role-tag {
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
   color: var(--netflix-red);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   margin-bottom: 2px;
 }
 
@@ -979,13 +980,13 @@ img {
 }
 
 .cast-relation {
-  font-family: var(--font-main);
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 500;
   color: var(--gold-accent);
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
   flex-shrink: 0;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .cast-name-wrapper {
@@ -997,12 +998,12 @@ img {
 }
 
 .cast-name {
-  font-family: var(--font-main);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: #ffffff;
-  letter-spacing: 8px;
-  margin-right: -8px;
+  letter-spacing: 4px;
+  margin-right: -4px;
   line-height: 1;
   text-align: center;
 }

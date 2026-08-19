@@ -554,23 +554,40 @@ window.openLightbox = function(src, groupSrcs) {
 
   if (!lightboxModal || !lightboxImg) return;
 
-  // 비하인드 컷 전체 15장 연속 스와이프용 이미지 리스트
+  // 비하인드 컷 전체 28장 연속 스와이프용 이미지 리스트 (Couple -> Poster & Garden -> River)
   const ALL_BEHIND_IMAGES = [
-    'assets/poster.jpg',
+    // Group 1: Couple (couple_main, couple1~3, groom1~3, bride1~8 - 15장)
+    'assets/couple_main.jpg',
+    'assets/couple1.jpg',
+    'assets/couple2.JPG',
+    'assets/couple3.jpg',
+    'assets/groom1.jpg',
+    'assets/groom2.JPG',
+    'assets/groom3.JPG',
+    'assets/bride1.jpg',
+    'assets/bride2.jpg',
+    'assets/bride3.jpg',
+    'assets/bride4.jpg',
+    'assets/bride5.JPG',
+    'assets/bride6.jpg',
+    'assets/bride7.JPG',
+    'assets/bride8.JPG',
+
+    // Group 2: Garden (garden1~6 - 6장)
     'assets/garden1.jpg',
     'assets/garden2.jpg',
+    'assets/garden3.JPG',
+    'assets/garden4.JPG',
+    'assets/garden5.jpg',
+    'assets/garden6.JPG',
+
+    // Group 3: River (6장)
     'assets/river_main.jpg',
     'assets/river1.jpg',
     'assets/river2.jpg',
     'assets/river3.jpg',
-    'assets/groom_main.jpg',
-    'assets/groom1.jpg',
-    'assets/gallery5.jpg',
-    'assets/bride_main.jpg',
-    'assets/bride1.jpg',
-    'assets/bride2.jpg',
-    'assets/bride3.jpg',
-    'assets/bride4.jpg'
+    'assets/river4.JPG',
+    'assets/river5.jpg'
   ];
 
   let images = ALL_BEHIND_IMAGES;
@@ -1069,7 +1086,7 @@ const KAKAO_JAVASCRIPT_APP_KEY = "42777bbeb7baf39ddbc931d9990aef3a";
 
 window.shareTicketLink = function() {
   const shareUrl = "https://mobileinvitation-pink.vercel.app";
-  const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/river2.jpg";
+  const posterUrl = "https://mobileinvitation-pink.vercel.app/assets/Thumbnail.jpg?v=20261009_thumb";
   const title = "윤현진 ♥ 한지수 결혼합니다";
   const desc = "2026년 10월 9일 금요일 오후 1시\n노블발렌티 삼성점";
 

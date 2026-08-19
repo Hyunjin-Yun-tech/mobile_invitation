@@ -22,8 +22,8 @@
   <meta property="og:url" content="https://mobileinvitation-pink.vercel.app/">
   <meta property="og:title" content="윤현진 ♥ 한지수 결혼합니다">
   <meta property="og:description" content="2026년 10월 9일 금요일 오후 1시 노블발렌티 삼성점">
-  <meta property="og:image" content="https://mobileinvitation-pink.vercel.app/assets/river2.jpg?v=20261009_river2">
-  <meta property="og:image:secure_url" content="https://mobileinvitation-pink.vercel.app/assets/river2.jpg?v=20261009_river2">
+  <meta property="og:image" content="https://mobileinvitation-pink.vercel.app/assets/Thumbnail.jpg?v=20261009_thumb">
+  <meta property="og:image:secure_url" content="https://mobileinvitation-pink.vercel.app/assets/Thumbnail.jpg?v=20261009_thumb">
   <meta property="og:image:width" content="800">
   <meta property="og:image:height" content="1200">
   <meta property="og:image:type" content="image/jpeg">
@@ -31,12 +31,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="윤현진 ♥ 한지수 결혼합니다">
   <meta name="twitter:description" content="2026년 10월 9일 금요일 오후 1시 노블발렌티 삼성점">
-  <meta name="twitter:image" content="https://mobileinvitation-pink.vercel.app/assets/river2.jpg?v=20261009_river2">
+  <meta name="twitter:image" content="https://mobileinvitation-pink.vercel.app/assets/Thumbnail.jpg?v=20261009_thumb">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@900&family=Outfit:wght@400;500;600;700;800&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&family=Gamja+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&family=Cinzel:wght@400;600;700;800;900&family=Lobster&family=Anton&family=Montserrat:wght@900&family=Outfit:wght@400;500;600;700;800&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Pen+Script&family=Gamja+Flower&display=swap" rel="stylesheet">
 
   <!-- KakaoTalk JavaScript SDK for Kakao Share Card -->
   <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -142,12 +142,12 @@
 
   <!-- 👥 5. CAST (출연진) -->
   <section class="section-wrapper">
-    <button class="cast-accordion-btn" id="castToggleBtn" onclick="toggleCastSection()" aria-expanded="false">
+    <button class="cast-accordion-btn" id="castToggleBtn" onclick="toggleCastSection()" aria-expanded="true">
       <h2 class="section-title cast-section-title">출연진 (CAST)</h2>
       <svg class="cast-accordion-arrow" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
     </button>
     
-    <div class="cast-collapsible" id="castContent">
+    <div class="cast-collapsible open" id="castContent">
       <div class="cast-grid">
         <!-- Groom Card -->
         <div class="cast-card">
@@ -267,11 +267,11 @@
     
     <div class="top10-carousel">
       
-      <!-- TOP 1: poster -->
-      <div class="top10-rank-item" onclick="openLightbox('assets/poster.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
+      <!-- TOP 1: couple_main -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/couple_main.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
         <div class="top10-number">1</div>
         <div class="top10-poster-card">
-          <img src="assets/poster.jpg" alt="메인 포스터">
+          <img src="assets/couple_main.jpg" alt="신랑 &amp; 신부 커플 화보">
           <div class="top10-badge-container two-tone">
             <span class="top10-badge-red-top">최신 등록</span>
             <span class="top10-badge-white-bottom">더보기</span>
@@ -279,11 +279,11 @@
         </div>
       </div>
 
-      <!-- TOP 2: river_main -->
-      <div class="top10-rank-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
+      <!-- TOP 2: garden1 -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/garden1.jpg', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
         <div class="top10-number">2</div>
         <div class="top10-poster-card">
-          <img src="assets/river_main.jpg" alt="웨딩 화보 2">
+          <img src="assets/garden1.jpg" alt="정원 화보 대표">
           <div class="top10-badge-container two-tone">
             <span class="top10-badge-red-top">새로운 에피소드</span>
             <span class="top10-badge-white-bottom">더보기</span>
@@ -291,25 +291,13 @@
         </div>
       </div>
 
-      <!-- TOP 3: groom_main -->
-      <div class="top10-rank-item" onclick="openLightbox('assets/groom_main.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
+      <!-- TOP 3: river_main -->
+      <div class="top10-rank-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
         <div class="top10-number">3</div>
         <div class="top10-poster-card">
-          <img src="assets/groom_main.jpg" alt="신랑 윤현진">
+          <img src="assets/river_main.jpg" alt="웨딩 화보 3">
           <div class="top10-badge-container two-tone">
-            <span class="top10-badge-red-top">주연 배우</span>
-            <span class="top10-badge-white-bottom">더보기</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TOP 4: bride_main -->
-      <div class="top10-rank-item" onclick="openLightbox('assets/bride_main.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-        <div class="top10-number">4</div>
-        <div class="top10-poster-card">
-          <img src="assets/bride_main.jpg" alt="신부 한지수">
-          <div class="top10-badge-container two-tone">
-            <span class="top10-badge-red-top">주연 배우</span>
+            <span class="top10-badge-red-top">인기 화보</span>
             <span class="top10-badge-white-bottom">더보기</span>
           </div>
         </div>
@@ -320,109 +308,145 @@
 
   <!-- 📸 GROUP GALLERY POPUP MODALS -->
 
-  <!-- Group 1 -->
+  <!-- Group 1 (Couple: couple_main, couple1~3, groom1~3, bride1~8 - 15장) -->
   <div id="groupModal1" class="group-gallery-overlay" onclick="closeGroupGallery('group1', event)">
     <div class="group-gallery-card" onclick="event.stopPropagation()">
       <div class="group-gallery-header">
-        <span class="group-gallery-title">🎬 #1 메인 포스터 컷</span>
+        <span class="group-gallery-title">🎬 #1 윤현진 ♥ 한지수 커플 화보</span>
         <button class="group-gallery-close" onclick="closeGroupGallery('group1')">✕</button>
       </div>
       <div class="group-gallery-grid">
-        <div class="group-gallery-item" onclick="openLightbox('assets/poster.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
-          <img src="assets/poster.jpg" alt="포스터">
-          <span class="group-item-label">포스터</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/couple_main.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/couple_main.jpg" alt="커플 메인">
+          <span class="group-item-label">커플 메인</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/garden1.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
-          <img src="assets/garden1.jpg" alt="정원 화보 1">
-          <span class="group-item-label">정원 #1</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/couple1.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/couple1.jpg" alt="커플 #1">
+          <span class="group-item-label">커플 #1</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/garden2.jpg', ['assets/poster.jpg','assets/garden1.jpg','assets/garden2.jpg'])">
-          <img src="assets/garden2.jpg" alt="정원 화보 2">
-          <span class="group-item-label">정원 #2</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/couple2.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/couple2.JPG" alt="커플 #2">
+          <span class="group-item-label">커플 #2</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/couple3.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/couple3.jpg" alt="커플 #3">
+          <span class="group-item-label">커플 #3</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/groom1.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/groom1.jpg" alt="신랑 #1">
+          <span class="group-item-label">신랑 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/groom2.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/groom2.JPG" alt="신랑 #2">
+          <span class="group-item-label">신랑 #2</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/groom3.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/groom3.JPG" alt="신랑 #3">
+          <span class="group-item-label">신랑 #3</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride1.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride1.jpg" alt="신부 #1">
+          <span class="group-item-label">신부 #1</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride2.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride2.jpg" alt="신부 #2">
+          <span class="group-item-label">신부 #2</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride3.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride3.jpg" alt="신부 #3">
+          <span class="group-item-label">신부 #3</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride4.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride4.jpg" alt="신부 #4">
+          <span class="group-item-label">신부 #4</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride5.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride5.JPG" alt="신부 #5">
+          <span class="group-item-label">신부 #5</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride6.jpg', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride6.jpg" alt="신부 #6">
+          <span class="group-item-label">신부 #6</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride7.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride7.JPG" alt="신부 #7">
+          <span class="group-item-label">신부 #7</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/bride8.JPG', ['assets/couple_main.jpg','assets/couple1.jpg','assets/couple2.JPG','assets/couple3.jpg','assets/groom1.jpg','assets/groom2.JPG','assets/groom3.JPG','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg','assets/bride5.JPG','assets/bride6.jpg','assets/bride7.JPG','assets/bride8.JPG'])">
+          <img src="assets/bride8.JPG" alt="신부 #8">
+          <span class="group-item-label">신부 #8</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Group 2 -->
+  <!-- Group 2 (Garden 1~6 - 6장) -->
   <div id="groupModal2" class="group-gallery-overlay" onclick="closeGroupGallery('group2', event)">
     <div class="group-gallery-card" onclick="event.stopPropagation()">
       <div class="group-gallery-header">
-        <span class="group-gallery-title">🎬 #2 리버 화보 컷</span>
+        <span class="group-gallery-title">🎬 #2 정원 화보 컷</span>
         <button class="group-gallery-close" onclick="closeGroupGallery('group2')">✕</button>
       </div>
       <div class="group-gallery-grid">
-        <div class="group-gallery-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
-          <img src="assets/river_main.jpg" alt="리버 메인">
-          <span class="group-item-label">리버 메인</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden1.jpg', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden1.jpg" alt="정원 화보 1">
+          <span class="group-item-label">정원 #1</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/river1.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
-          <img src="assets/river1.jpg" alt="리버 화보 1">
-          <span class="group-item-label">리버 #1</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden2.jpg', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden2.jpg" alt="정원 화보 2">
+          <span class="group-item-label">정원 #2</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/river2.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
-          <img src="assets/river2.jpg" alt="리버 화보 2">
-          <span class="group-item-label">리버 #2</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden3.JPG', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden3.JPG" alt="정원 화보 3">
+          <span class="group-item-label">정원 #3</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/river3.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg'])">
-          <img src="assets/river3.jpg" alt="리버 화보 3">
-          <span class="group-item-label">리버 #3</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden4.JPG', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden4.JPG" alt="정원 화보 4">
+          <span class="group-item-label">정원 #4</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden5.jpg', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden5.jpg" alt="정원 화보 5">
+          <span class="group-item-label">정원 #5</span>
+        </div>
+        <div class="group-gallery-item" onclick="openLightbox('assets/garden6.JPG', ['assets/garden1.jpg','assets/garden2.jpg','assets/garden3.JPG','assets/garden4.JPG','assets/garden5.jpg','assets/garden6.JPG'])">
+          <img src="assets/garden6.JPG" alt="정원 화보 6">
+          <span class="group-item-label">정원 #6</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Group 3 -->
+  <!-- Group 3 (River 1~5) -->
   <div id="groupModal3" class="group-gallery-overlay" onclick="closeGroupGallery('group3', event)">
     <div class="group-gallery-card" onclick="event.stopPropagation()">
       <div class="group-gallery-header">
-        <span class="group-gallery-title">🎬 #3 신랑 윤현진</span>
+        <span class="group-gallery-title">🎬 #3 리버 화보 컷</span>
         <button class="group-gallery-close" onclick="closeGroupGallery('group3')">✕</button>
       </div>
       <div class="group-gallery-grid">
-        <div class="group-gallery-item" onclick="openLightbox('assets/groom_main.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
-          <img src="assets/groom_main.jpg" alt="신랑 메인">
-          <span class="group-item-label">신랑 메인</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river_main.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river_main.jpg" alt="리버 메인">
+          <span class="group-item-label">리버 메인</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/groom1.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
-          <img src="assets/groom1.jpg" alt="신랑 화보 1">
-          <span class="group-item-label">신랑 #1</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river1.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river1.jpg" alt="리버 화보 1">
+          <span class="group-item-label">리버 #1</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/gallery5.jpg', ['assets/groom_main.jpg','assets/groom1.jpg','assets/gallery5.jpg'])">
-          <img src="assets/gallery5.jpg" alt="웨딩 화보 5">
-          <span class="group-item-label">화보 #5</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river2.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river2.jpg" alt="리버 화보 2">
+          <span class="group-item-label">리버 #2</span>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Group 4 -->
-  <div id="groupModal4" class="group-gallery-overlay" onclick="closeGroupGallery('group4', event)">
-    <div class="group-gallery-card" onclick="event.stopPropagation()">
-      <div class="group-gallery-header">
-        <span class="group-gallery-title">🎬 #4 신부 한지수</span>
-        <button class="group-gallery-close" onclick="closeGroupGallery('group4')">✕</button>
-      </div>
-      <div class="group-gallery-grid">
-        <div class="group-gallery-item" onclick="openLightbox('assets/bride_main.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-          <img src="assets/bride_main.jpg" alt="신부 메인">
-          <span class="group-item-label">신부 메인</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river3.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river3.jpg" alt="리버 화보 3">
+          <span class="group-item-label">리버 #3</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/bride1.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-          <img src="assets/bride1.jpg" alt="신부 화보 1">
-          <span class="group-item-label">화보 #1</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river4.JPG', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river4.JPG" alt="리버 화보 4">
+          <span class="group-item-label">리버 #4</span>
         </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/bride2.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-          <img src="assets/bride2.jpg" alt="신부 화보 2">
-          <span class="group-item-label">화보 #2</span>
-        </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/bride3.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-          <img src="assets/bride3.jpg" alt="신부 화보 3">
-          <span class="group-item-label">화보 #3</span>
-        </div>
-        <div class="group-gallery-item" onclick="openLightbox('assets/bride4.jpg', ['assets/bride_main.jpg','assets/bride1.jpg','assets/bride2.jpg','assets/bride3.jpg','assets/bride4.jpg'])">
-          <img src="assets/bride4.jpg" alt="신부 화보 4">
-          <span class="group-item-label">화보 #4</span>
+        <div class="group-gallery-item" onclick="openLightbox('assets/river5.jpg', ['assets/river_main.jpg','assets/river1.jpg','assets/river2.jpg','assets/river3.jpg','assets/river4.JPG','assets/river5.jpg'])">
+          <img src="assets/river5.jpg" alt="리버 화보 5">
+          <span class="group-item-label">리버 #5</span>
         </div>
       </div>
     </div>
